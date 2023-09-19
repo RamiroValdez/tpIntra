@@ -5,12 +5,15 @@ import java.util.List;
 
 public class Universidad {
     private static List<Alumno> listaAlumnos;
-    private static List<Comision> listaComisiones = new ArrayList<>();
+    private static List<Comision> listaComisiones;
     private static List<Materia> listaMaterias;
+    private static List<CicloLectivo> listaCiclosLectivos;
 
     public Universidad() {
         listaAlumnos = new ArrayList<>();
         listaMaterias = new ArrayList<>();
+        listaComisiones = new ArrayList<>();
+        listaCiclosLectivos = new ArrayList<>();
     }
 
     public boolean agregarAlumno(Alumno alumno) {
@@ -26,6 +29,39 @@ public class Universidad {
         return true;
     }
     
+    public CicloLectivo buscarCicloLectivo(CicloLectivo buscado) {
+    	for (CicloLectivo cl : listaCiclosLectivos) {
+			if(cl.equals(buscado)) {
+				return cl;
+			}
+		}
+    	
+    	return null;
+    }
+    
+    public Comision buscarComision(Comision buscado) {
+    	
+    	for (Comision c : listaComisiones) {
+			if(c.getCodigo().equals(buscado.getCodigo())) {
+				return c;
+			}
+		}
+    	
+    	return null;
+    }
+    
+    public Boolean asignarCicloLectivoAComision(Comision comisionAsignada, CicloLectivo cicloAsignar) {
+    	
+    	if(buscarCicloLectivo(cicloAsignar) != null && buscarComision(comisionAsignada) != null) {
+    		buscarComision(comisionAsignada).setCicloPerteneciente(cicloAsignar);
+    		return true;
+    	}
+    	
+    	return false;
+    	
+    	
+    	
+    }
     public boolean agregarComision(Comision comision) {
         // Verifica si ya existe una comisión con el mismo código
         for (Comision c : listaComisiones) {
@@ -93,6 +129,35 @@ public class Universidad {
     	return false;
 		
 	}
+    
+    public Boolean agregarCicloLectivo(CicloLectivo cicloAgregar) {
+    	
+    	if(listaCiclosLectivos == null) {
+    		return listaCiclosLectivos.add(cicloAgregar);
+    	}else {
+    		//Verifica si el cilcoLectivo ya existe (si tiene el mismo id)
+    		
+    		for (CicloLectivo cl : listaCiclosLectivos) {
+    			
+    			if(cl.equals(cicloAgregar)) {
+    				return false;
+    			}
+    			//Verifica que las fecha de inicio o final no coincidan.
+    			if(cl.getFechaInicio().isEqual(cicloAgregar.getFechaInicio()) || cl.getFechaFin().isEqual(cicloAgregar.getFechaFin())) {
+    				return false;
+    			}
+    			
+    			if(cicloAgregar.getFechaInicio().isBefore(cl.getFechaFin()) &&
+                cicloAgregar.getFechaFin().isAfter(cl.getFechaInicio())) {
+    				return false;
+    			}
+			}
+    		//Si todo lo anterior no ocurre se agrega a la lista.
+    		
+    		return listaCiclosLectivos.add(cicloAgregar);
+    	}
+    	
+    }
 
     
     public static List<Alumno> getListaAlumnos() {
@@ -106,6 +171,10 @@ public class Universidad {
     public static List<Materia> getListaMaterias(){
     	return listaMaterias;
     }
+
+	public static List<CicloLectivo> getListaCiclosLectivos() {
+		return listaCiclosLectivos;
+	}
 
 	
 	

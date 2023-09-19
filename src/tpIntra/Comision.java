@@ -7,13 +7,24 @@ public class Comision {
     private String codigo;  // Un código identificador único para la comisión
     private List<Profesor> profesores;
     private List<Alumno> alumnos;
-
-    public Comision(String codigo) {
+	private CicloLectivo cicloPerteneciente;
+    
+    public Comision(String codigo, CicloLectivo cicloPerteneciente) {
         this.codigo = codigo;
+        this.cicloPerteneciente = cicloPerteneciente;
         this.profesores = new ArrayList<>();
         this.alumnos = new ArrayList<>();
     }
-
+    
+    public CicloLectivo getCicloPerteneciente() {
+		return cicloPerteneciente;
+	}
+    
+    public void setCicloPerteneciente(CicloLectivo cicloPerteneciente) {
+		this.cicloPerteneciente = cicloPerteneciente;
+	}
+    
+    
     // Métodos para agregar profesores, alumnos y registros de exámenes
     public void agregarProfesor(Profesor profesor) {
         profesores.add(profesor);
