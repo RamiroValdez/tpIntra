@@ -7,6 +7,7 @@ public class Universidad {
     private static List<Alumno> listaAlumnos = new ArrayList<>(); // Declarar como estática
     private static List<Comision> listaComisiones = new ArrayList<>(); // Declarar como estática
     private static List<CicloLectivo> listaCiclosLectivos = new ArrayList<>();
+    private static List<Materia> listaMaterias = new ArrayList<>();
     
     public void imprimirComisionesDisponibles() {
         for (Comision comision : listaComisiones) {
@@ -72,9 +73,62 @@ public class Universidad {
 
         return true; // Inscripción exitosa
     }
+    public Boolean agregarMateria(Materia materiaAgregada) {
+	//No se puede agregar 2 materias con mismo Id
+    	
+    	if(listaMaterias == null) {
+    		return listaMaterias.add(materiaAgregada);
+    	}else {    	
+    		for (Materia materia : listaMaterias) {
+    			
+    			if(materia.equals(materiaAgregada)) {
+					return false;
+				}
+			}
+    		
+    		return listaMaterias.add(materiaAgregada);
+    	}
+	}
+    public Boolean agregarCorrelatividad(Integer id, Integer id2) {
+		
+  		for (Materia m : listaMaterias) {
+  			if(m.getId().equals(id)) {
+  				//Solo permite el agregado de correlativas si no tiene ninguna asignada.
+  				if(m.getIdCorrelativa() == null) { 
+  				m.setIdCorrelativa(id2);
+  				return true;
+  				}
+  				
+  			}
+  		}
+  		return false;
+  	}
+      
+      public Boolean eliminarCorrelatividad(Integer id, Integer id2) {
+  		
+      	for (Materia m : listaMaterias) {
+  			if(m.getId().equals(id)) {
+  				//Estos condicionales verifican que tenga correlativas y correspondan al valor buscado.
+  				if(m.getIdCorrelativa() != null) { 
+  					if(m.getIdCorrelativa().equals(id2)) {
+  						m.setIdCorrelativa(null);
+  						return true;
+  					}
+  					
+  				}
+  				
+  			}
+  		
+      	}
+      	
+      	return false;
+      	
+      }
 
 	public static List<CicloLectivo> getListaCiclosLectivos() {
 		return listaCiclosLectivos;
 	}
+
+	
 
 }
