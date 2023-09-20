@@ -6,13 +6,14 @@ import java.util.List;
 
 import tpIntra.Alumno;
 import tpIntra.Comision;
+import tpIntra.Materia;
 import tpIntra.Universidad;
 
 public class GestorInscripciones {
 
     private List<Comision> comisiones = new ArrayList<>();
-
-    // ... Otros métodos de gestión de comisiones
+    private Date fechaInicioInscripcion;
+	private Date fechaaFinInscripcion;
 
     public boolean inscribirAlumnoAComision(Alumno alumno, Comision comision) {
         // Verificar que el alumno y la comisión estén dados de alta
@@ -68,7 +69,7 @@ public class GestorInscripciones {
 
     private boolean tieneCorrelativasAprobadas(Alumno alumno) {
         // Supongamos que tienes una lista de correlativas aprobadas por el alumno
-        List<String> correlativasAprobadas = alumno.getCorrelativasAprobadas();
+        List<Materia> correlativasAprobadas = alumno.getCorrelativasAprobadas();
 
         // Verificar si el alumno tiene al menos 4 correlativas aprobadas
         return correlativasAprobadas.size() >= 4;
@@ -84,11 +85,11 @@ public class GestorInscripciones {
         return fechaActual.compareTo(fechaInicioInscripcion) < 0 || fechaActual.compareTo(fechaFinInscripcion) > 0;
     }
 
-    private Date obtenerFechaFinInscripcion() {
+    Date obtenerFechaFinInscripcion() {
         // Supongamos que la fecha de finalización de inscripción es el 15 de enero de 2023 a las 23:59:59
         Calendar cal = Calendar.getInstance();
         cal.set(Calendar.YEAR, 2023);
-        cal.set(Calendar.MONTH, Calendar.JANUARY); // Enero
+        cal.set(Calendar.MONTH, Calendar.SEPTEMBER); // Enero
         cal.set(Calendar.DAY_OF_MONTH, 15);
         cal.set(Calendar.HOUR_OF_DAY, 23);
         cal.set(Calendar.MINUTE, 59);
@@ -98,11 +99,11 @@ public class GestorInscripciones {
     }
 
 
-	private Date obtenerFechaInicioInscripcion() {
+	 Date obtenerFechaInicioInscripcion() {
         // Supongamos que la fecha de inicio de inscripción es el 1 de enero de 2023 a las 00:00:00
         Calendar cal = Calendar.getInstance();
         cal.set(Calendar.YEAR, 2023);
-        cal.set(Calendar.MONTH, Calendar.JANUARY); // Enero
+        cal.set(Calendar.MONTH, Calendar.SEPTEMBER); // Enero
         cal.set(Calendar.DAY_OF_MONTH, 1);
         cal.set(Calendar.HOUR_OF_DAY, 0);
         cal.set(Calendar.MINUTE, 0);
@@ -148,5 +149,38 @@ public class GestorInscripciones {
         // Verificar si el alumno ya aprobó la materia de la comisión
         return materiasAprobadas.contains(materiaComision);
     }
+
+    public void configurarFechaInscripcionValida() {
+        // Obtener las fechas de inicio y fin de inscripción
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.YEAR, 2023);
+        cal.set(Calendar.MONTH, Calendar.SEPTEMBER); // Mes de septiembre
+        cal.set(Calendar.DAY_OF_MONTH, 1); // Día 1 de septiembre
+        cal.set(Calendar.HOUR_OF_DAY, 0);
+        cal.set(Calendar.MINUTE, 0);
+        cal.set(Calendar.SECOND, 0);
+        Date fechaInicio = cal.getTime();
+
+        cal.set(Calendar.DAY_OF_MONTH, 15); // Día 15 de septiembre
+        cal.set(Calendar.HOUR_OF_DAY, 23);
+        cal.set(Calendar.MINUTE, 59);
+        cal.set(Calendar.SECOND, 59);
+        Date fechaFin = cal.getTime();
+
+        // Establecer las fechas de inicio y fin de inscripción en el período válido
+        setFechaInicioInscripcion(fechaInicio);
+        setFechaFinInscripcion(fechaFin);
+    }
+
+
+    private void setFechaFinInscripcion(Date nuevaFechaFin) {
+		this.fechaaFinInscripcion = nuevaFechaFin;
+		
+	}
+
+	private void setFechaInicioInscripcion(Date nuevaFechaInicio) {
+        this.fechaInicioInscripcion = nuevaFechaInicio;
+    }
+
 
 }
