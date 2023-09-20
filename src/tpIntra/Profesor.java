@@ -1,14 +1,16 @@
 package tpIntra;
 
+import java.time.LocalDate;
+
 public class Profesor {
 	
 	private String dni;
 	private String nombre;
     private String apellido;
-    private String fechaNacimiento;
+    private LocalDate fechaNacimiento;
     private String materiaAsignada;
     
-    public Profesor(String dni, String nombre, String apellido, String fechaNacimiento, String materiaAsignada) {
+    public Profesor(String dni, String nombre, String apellido, LocalDate fechaNacimiento, String materiaAsignada) {
 		this.dni = dni;
 		this.nombre = nombre;
 		this.apellido = apellido;
@@ -40,11 +42,11 @@ public class Profesor {
 		this.apellido = apellido;
 	}
 
-	public String getFechaNacimiento() {
+	public LocalDate getFechaNacimiento() {
 		return fechaNacimiento;
 	}
 
-	public void setFechaNacimiento(String fechaNacimiento) {
+	public void setFechaNacimiento(LocalDate fechaNacimiento) {
 		this.fechaNacimiento = fechaNacimiento;
 	}
 

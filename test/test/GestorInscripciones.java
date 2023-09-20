@@ -6,14 +6,15 @@ import java.util.List;
 
 import tpIntra.Alumno;
 import tpIntra.Comision;
+import tpIntra.Profesor;
 import tpIntra.Universidad;
 
 public class GestorInscripciones {
 
     private List<Comision> comisiones = new ArrayList<>();
-
     // ... Otros métodos de gestión de comisiones
 
+    
     public boolean inscribirAlumnoAComision(Alumno alumno, Comision comision) {
         // Verificar que el alumno y la comisión estén dados de alta
         if (!esAlumnoAlta(alumno) || !esComisionAlta(comision)) {
@@ -58,6 +59,7 @@ public class GestorInscripciones {
         return listaAlumnos.contains(alumno);
     }
 
+    
     private boolean esComisionAlta(Comision comision) {
         // Supongamos que tienes una lista de comisiones dadas de alta en la Universidad
         List<Comision> listaComisiones = Universidad.getListaComisiones();
@@ -143,10 +145,12 @@ public class GestorInscripciones {
         List<String> materiasAprobadas = alumno.getMateriasAprobadas();
 
         // Supongamos que también tienes la materia de la comisión
-        String materiaComision = comision.getMateria();
+        String materiaComision = comision.getMateriaAsignada();
 
         // Verificar si el alumno ya aprobó la materia de la comisión
         return materiasAprobadas.contains(materiaComision);
     }
 
+    
+    
 }

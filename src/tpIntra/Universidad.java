@@ -8,12 +8,14 @@ public class Universidad {
     private static List<Comision> listaComisiones;
     private static List<Materia> listaMaterias;
     private static List<CicloLectivo> listaCiclosLectivos;
+    private static List<Profesor> listaProfesores;
 
     public Universidad() {
         listaAlumnos = new ArrayList<>();
         listaMaterias = new ArrayList<>();
         listaComisiones = new ArrayList<>();
         listaCiclosLectivos = new ArrayList<>();
+        listaProfesores = new ArrayList<>();
     }
 
     public boolean agregarAlumno(Alumno alumno) {
@@ -64,15 +66,30 @@ public class Universidad {
     }
     public boolean agregarComision(Comision comision) {
         // Verifica si ya existe una comisión con el mismo código
-        for (Comision c : listaComisiones) {
-            if (c.getCodigo().equals(comision.getCodigo())) {
-                return false; // El código de comisión ya existe
-            }
+        if(listaComisiones == null) {
+        	return listaComisiones.add(comision);
+        }else {
+    	
+    	for (Comision c : listaComisiones) {
+            	if (c.getCodigo().equals(comision.getCodigo())) {
+                	return false; // El código de comisión ya existe
+            	}
+            
+            	if(c.getMateriaAsignada().equals(comision.getMateriaAsignada())) {
+            		return false;
+            	}
+            
+            	if(c.getCicloPerteneciente().equals(comision.getCicloPerteneciente())) {
+            		return false;
+            	}
+            
+            	if(c.getTurno().equals(comision.getTurno())) {
+            		return false;
+            	}
+        	}
+    	return listaComisiones.add(comision);
+        
         }
-
-        // Si el código no existe en la lista, agregar la comisión
-        listaComisiones.add(comision);
-        return true;
     }
 
     
@@ -158,9 +175,65 @@ public class Universidad {
     	}
     	
     }
-
+    public Boolean agregarDocentes(Profesor nuevoProfesor) {
+		
+    	if(listaProfesores == null) {
+    		return listaProfesores.add(nuevoProfesor);
+    	}else {
+    		for (Profesor p : listaProfesores) {
+				
+    			if(p.getDni() == nuevoProfesor.getDni()) {
+    				return false;
+    			}
+    			
+			}
+    		
+    		return listaProfesores.add(nuevoProfesor);
+    	}
+    	
+	}
     
-    public static List<Alumno> getListaAlumnos() {
+    public Boolean asignarDocentesAComision(Profesor profesorAsignar, Comision comisionDondeSeAsigna) {
+    	
+    	if(!profesorAlta(profesorAsignar) || !comisionAlta(comisionDondeSeAsigna)) {
+    		return false;
+    	}else {
+    		
+    		for (Comision c : listaComisiones) {
+				
+    			if(c.getProfesores() == null) {
+    				c.agregarProfesor(profesorAsignar);
+    			}else {
+    				if(c.getProfesores().contains(profesorAsignar)) {
+    					return false;
+    				}else {
+    					c.agregarProfesor(profesorAsignar);
+    				}
+    			}
+			}
+    		
+    		return true;
+    		
+    		
+    		
+    	}
+    	
+    	
+    }
+    
+    private Boolean comisionAlta(Comision comisionDondeSeAsigna) {
+		// TODO Auto-generated method stub
+		return listaComisiones.contains(comisionDondeSeAsigna);
+	}
+
+	private Boolean profesorAlta(Profesor profesorAsignar) {
+		// TODO Auto-generated method stub
+		return listaProfesores.contains(profesorAsignar);
+	}
+    
+    
+
+	public static List<Alumno> getListaAlumnos() {
         return listaAlumnos;
     }
 
@@ -175,6 +248,12 @@ public class Universidad {
 	public static List<CicloLectivo> getListaCiclosLectivos() {
 		return listaCiclosLectivos;
 	}
+
+	public static List<Profesor> getListaProfesores() {
+		return listaProfesores;
+	}
+
+	
 
 	
 	

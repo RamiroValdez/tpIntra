@@ -1,5 +1,6 @@
 package tpIntra;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,11 +9,11 @@ public class Alumno {
     private String dni;
     private String nombre;
     private String apellido;
-    private String fechaNacimiento;
-    private String fechaIngreso;
+    private LocalDate fechaNacimiento;
+    private LocalDate fechaIngreso;
     private List<String> correlativasAprobadas; // Lista de correlativas aprobadas
 
-    public Alumno(String dni, String nombre, String apellido, String fechaNacimiento, String fechaIngreso) {
+    public Alumno(String dni, String nombre, String apellido, LocalDate fechaNacimiento, LocalDate fechaIngreso) {
         this.dni = dni;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -60,19 +61,19 @@ public class Alumno {
 		this.apellido = apellido;
 	}
 
-	public String getFechaNacimiento() {
+	public LocalDate getFechaNacimiento() {
 		return fechaNacimiento;
 	}
 
-	public void setFechaNacimiento(String fechaNacimiento) {
+	public void setFechaNacimiento(LocalDate fechaNacimiento) {
 		this.fechaNacimiento = fechaNacimiento;
 	}
 
-	public String getFechaIngreso() {
+	public LocalDate getFechaIngreso() {
 		return fechaIngreso;
 	}
 
-	public void setFechaIngreso(String fechaIngreso) {
+	public void setFechaIngreso(LocalDate fechaIngreso) {
 		this.fechaIngreso = fechaIngreso;
 	}
 

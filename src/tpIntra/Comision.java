@@ -4,13 +4,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Comision {
-    private String codigo;  // Un código identificador único para la comisión
+    private Integer codigo;  // Un código identificador único para la comisión
     private List<Profesor> profesores;
     private List<Alumno> alumnos;
 	private CicloLectivo cicloPerteneciente;
+    private Materia materiaAsignada;
+    private String turno;
     
-    public Comision(String codigo, CicloLectivo cicloPerteneciente) {
+    public Comision(Integer codigo,Materia materiaAsignada, CicloLectivo cicloPerteneciente, String turno) {
         this.codigo = codigo;
+        this.materiaAsignada = materiaAsignada;
+        this.turno = turno;
         this.cicloPerteneciente = cicloPerteneciente;
         this.profesores = new ArrayList<>();
         this.alumnos = new ArrayList<>();
@@ -20,11 +24,25 @@ public class Comision {
 		return cicloPerteneciente;
 	}
     
+ 
     public void setCicloPerteneciente(CicloLectivo cicloPerteneciente) {
 		this.cicloPerteneciente = cicloPerteneciente;
 	}
     
+    public Materia getMateriaAsignada() {
+    	return materiaAsignada;
+    }
+    public void setMateriaAsignada(Materia materia) {
+    	this.materiaAsignada = materia;
+    }
     
+    public String getTurno() {
+    	return turno;
+    }
+    
+    public void setTurno(String turno) {
+    	this.turno = turno;
+    }
     // Métodos para agregar profesores, alumnos y registros de exámenes
     public void agregarProfesor(Profesor profesor) {
         profesores.add(profesor);
@@ -35,7 +53,7 @@ public class Comision {
     }
 
     // Métodos para obtener información de la comisión
-    public String getCodigo() {
+    public Integer getCodigo() {
         return codigo;
     }
 
@@ -59,20 +77,6 @@ public class Comision {
         String dia = "Lunes"; // Puedes ajustar esto según el día real de tu inscripción
 
         return dia;
-    }
-
-    public String getTurno() {
-        // Supongamos que el turno es "Mañana" en este ejemplo
-        String turno = "Mañana"; // Puedes ajustar esto según el turno real de tu inscripción
-
-        return turno;
-    }
-
-    public String getMateria() {
-        // Supongamos que el nombre de la materia es "Materia1" en este ejemplo
-        String materia = "Materia1"; // Puedes ajustar esto según el nombre real de la materia
-
-        return materia;
     }
 
 
