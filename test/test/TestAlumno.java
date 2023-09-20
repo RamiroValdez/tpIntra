@@ -77,6 +77,9 @@ public class TestAlumno {
         // Crear una instancia de la comisión a la que se intentará inscribir al alumno
         Comision comision = new Comision("COM-001");
 
+        // Agregar la comisión a la lista de comisiones disponibles
+        universidad.agregarComision(comision);
+
         // Simular que el alumno tiene al menos 4 correlativas aprobadas
         for (int i = 1; i <= 4; i++) {
             Materia correlativaAprobada = new Materia(i, "Materia" + i);
@@ -86,4 +89,5 @@ public class TestAlumno {
         // Intentar inscribir al alumno en una comisión con al menos 4 correlativas aprobadas (debería ser exitoso)
         assertTrue(universidad.inscribirAlumnoAComision(alumno, comision));
     }
+
 }

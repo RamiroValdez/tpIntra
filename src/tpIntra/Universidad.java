@@ -8,8 +8,10 @@ public class Universidad {
     private static List<Comision> listaComisiones = new ArrayList<>(); // Declarar como estática
     private static List<CicloLectivo> listaCiclosLectivos = new ArrayList<>();
     
-    public Universidad() {
-        // No es necesario inicializar las listas aquí, ya que se inicializan arriba como estáticas
+    public void imprimirComisionesDisponibles() {
+        for (Comision comision : listaComisiones) {
+            System.out.println(comision.getCodigo());
+        }
     }
 
     public boolean agregarAlumno(Alumno alumno) {
@@ -25,7 +27,7 @@ public class Universidad {
         return true;
     }
     
-    public boolean agregarComision(Comision comision) {
+ public boolean agregarComision(Comision comision) {
         // Verifica si ya existe una comisión con el mismo código
         for (Comision c : listaComisiones) {
             if (c.getCodigo().equals(comision.getCodigo())) {

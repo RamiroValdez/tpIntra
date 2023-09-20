@@ -89,7 +89,7 @@ public class GestorInscripciones {
         return fechaActual.compareTo(fechaInicioInscripcion) < 0 || fechaActual.compareTo(fechaFinInscripcion) > 0;
     }
 
-    public LocalDate obtenerFechaFinInscripcion() {
+    public Date obtenerFechaFinInscripcion() {
         // Supongamos que la fecha de finalización de inscripción es el 15 de enero de 2023 a las 23:59:59
     	
     	List<CicloLectivo> cicloLectivo = Universidad.getListaCiclosLectivos();

@@ -44,7 +44,7 @@ public class GestorInscripcionesTest {
 
         // Agregar la comisión a la Universidad (esto debe hacerse antes de la prueba)
         universidad.agregarComision(comision);
-
+        
         alumno.agregarCorrelativaAprobada(1,"Correlativa1");
         alumno.agregarCorrelativaAprobada(2,"Correlativa90");
         alumno.agregarCorrelativaAprobada(3,"Correlativa3");
