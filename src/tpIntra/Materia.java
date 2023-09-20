@@ -7,11 +7,13 @@ public class Materia {
 
     private Integer id;
     private String nombre;
+	private Integer idCorrelativa;
     private static List<Materia> listaMaterias = new ArrayList<>();
 
-    public Materia(Integer id, String nombre) {
+    public Materia(Integer id, String nombre, Integer idCorrelativa) {
         this.id = id;
         this.nombre = nombre;
+        this.idCorrelativa = idCorrelativa;
         // Verificar si ya existe una materia con el mismo ID
         if (existeMateriaConID(id)) {
             throw new IllegalArgumentException("Ya existe una materia con el mismo ID.");
@@ -19,6 +21,12 @@ public class Materia {
         listaMaterias.add(this); // Agregar la nueva materia a la lista
     }
 
+    public Integer getIdCorrelativa() {
+		return idCorrelativa;
+	}
+    public void setIdCorrelativa(Integer idCorrelativa) {
+		this.idCorrelativa = idCorrelativa;
+	}
     public Integer getId() {
         return id;
     }

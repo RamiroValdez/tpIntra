@@ -48,8 +48,10 @@ public class TestAlumno {
         Alumno alumno = new Alumno("123456789", "Juan", "Perez", "01/01/1990", "01/09/2023");
 
         // Agregar correlativas aprobadas
-        Materia correlativa1 = new Materia(1, "Correlativa1");
-        Materia correlativa2 = new Materia(2, "Correlativa2");
+        Materia correlativa1 = new Materia(1, "Correlativa1",2);
+        Materia correlativa2 = new Materia(2, "Correlativa2",3);
+        Materia correlativa3 = new Materia(3, "Correlativa2",null);
+        
         alumno.agregarCorrelativaAprobada(correlativa1);
         alumno.agregarCorrelativaAprobada(correlativa2);
 
@@ -61,6 +63,7 @@ public class TestAlumno {
 
     @Test
     public void testInscripcionSinCorrelativasAprobadas() {
+    	
         Alumno alumno = new Alumno("123456789", "Juan", "Perez", "01/01/1990", "01/09/2023");
 
         // Crear una instancia de la comisión a la que se intentará inscribir al alumno
@@ -79,7 +82,7 @@ public class TestAlumno {
 
         // Simular que el alumno tiene al menos 4 correlativas aprobadas
         for (int i = 1; i <= 4; i++) {
-            Materia correlativaAprobada = new Materia(i, "Materia" + i);
+            Materia correlativaAprobada = new Materia(i, "Materia" + i, i+1);
             alumno.agregarCorrelativaAprobada(correlativaAprobada);
         }
 
