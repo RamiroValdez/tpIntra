@@ -45,10 +45,10 @@ public class GestorInscripcionesTest {
         // Agregar la comisión a la Universidad (esto debe hacerse antes de la prueba)
         universidad.agregarComision(comision);
 
-        alumno.agregarCorrelativaAprobada("Correlativa1");
-        alumno.agregarCorrelativaAprobada("Correlativa90");
-        alumno.agregarCorrelativaAprobada("Correlativa3");
-        alumno.agregarCorrelativaAprobada("Correlativa4");
+        alumno.agregarCorrelativaAprobada(1,"Correlativa1");
+        alumno.agregarCorrelativaAprobada(2,"Correlativa90");
+        alumno.agregarCorrelativaAprobada(3,"Correlativa3");
+        alumno.agregarCorrelativaAprobada(4,"Correlativa4");
 
         // Ejecutar el método que deseas probar
         boolean inscripcionExitosa = gestor.inscribirAlumnoAComision(alumno, comision);

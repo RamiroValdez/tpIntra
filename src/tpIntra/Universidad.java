@@ -6,7 +6,8 @@ import java.util.List;
 public class Universidad {
     private static List<Alumno> listaAlumnos = new ArrayList<>(); // Declarar como estática
     private static List<Comision> listaComisiones = new ArrayList<>(); // Declarar como estática
-
+    private static List<CicloLectivo> listaCiclosLectivos = new ArrayList<>();
+    
     public Universidad() {
         // No es necesario inicializar las listas aquí, ya que se inicializan arriba como estáticas
     }
@@ -69,5 +70,9 @@ public class Universidad {
 
         return true; // Inscripción exitosa
     }
+
+	public static List<CicloLectivo> getListaCiclosLectivos() {
+		return listaCiclosLectivos;
+	}
 
 }

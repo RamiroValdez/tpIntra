@@ -110,9 +110,10 @@ public class Alumno {
         // Agregar una materia aprobada a la lista de materias aprobadas
         materiasAprobadas.add(materia);
     }
-    public void agregarCorrelativaAprobada(String nombreMateria) {
+    public void agregarCorrelativaAprobada(Integer id, String nombreMateria) {
         // Crear una instancia de Materia usando el nombre proporcionado
-        Materia nuevaCorrelativa = new Materia(1, nombreMateria);
+   
+        Materia nuevaCorrelativa = new Materia(id, nombreMateria);
 
         // Agregar la nueva correlativa aprobada a la lista
         correlativasAprobadas.add(nuevaCorrelativa);

@@ -1,10 +1,12 @@
 package test;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
 import tpIntra.Alumno;
+import tpIntra.CicloLectivo;
 import tpIntra.Comision;
 import tpIntra.Materia;
 import tpIntra.Universidad;
@@ -15,8 +17,10 @@ public class GestorInscripciones {
     private Date fechaInicioInscripcion;
 	private Date fechaaFinInscripcion;
 
+
     public boolean inscribirAlumnoAComision(Alumno alumno, Comision comision) {
-        // Verificar que el alumno y la comisión estén dados de alta
+        
+    	// Verificar que el alumno y la comisión estén dados de alta
         if (!esAlumnoAlta(alumno) || !esComisionAlta(comision)) {
             return false;
         }
@@ -85,12 +89,17 @@ public class GestorInscripciones {
         return fechaActual.compareTo(fechaInicioInscripcion) < 0 || fechaActual.compareTo(fechaFinInscripcion) > 0;
     }
 
-    Date obtenerFechaFinInscripcion() {
+    public LocalDate obtenerFechaFinInscripcion() {
         // Supongamos que la fecha de finalización de inscripción es el 15 de enero de 2023 a las 23:59:59
+    	
+    	List<CicloLectivo> cicloLectivo = Universidad.getListaCiclosLectivos();
+    	
+    	
+    	
         Calendar cal = Calendar.getInstance();
         cal.set(Calendar.YEAR, 2023);
         cal.set(Calendar.MONTH, Calendar.SEPTEMBER); // Enero
-        cal.set(Calendar.DAY_OF_MONTH, 15);
+        cal.set(Calendar.DAY_OF_MONTH, 30);
         cal.set(Calendar.HOUR_OF_DAY, 23);
         cal.set(Calendar.MINUTE, 59);
         cal.set(Calendar.SECOND, 59);
