@@ -13,7 +13,7 @@ public class Alumno {
     private List<Materia> correlativasAprobadas; // Lista de correlativas aprobadas
     private List<Comision> comisionesInscritas;
     private List<String> materiasAprobadas;
-
+ 
     public Alumno(String dni, String nombre, String apellido, String fechaNacimiento, String fechaIngreso) {
         this.dni = dni;
         this.nombre = nombre;

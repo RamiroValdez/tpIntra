@@ -76,7 +76,7 @@ public class TestAlumno {
     @Test
     public void testInscripcionConCorrelativasAprobadas() {
         Alumno alumno = new Alumno("123456789", "Juan", "Perez", "01/01/1990", "01/09/2023");
-
+        
         // Crear una instancia de la comisión a la que se intentará inscribir al alumno
         Comision comision = new Comision("COM-001");
 

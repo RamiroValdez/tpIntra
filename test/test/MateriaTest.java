@@ -13,7 +13,7 @@ public class MateriaTest {
         // Antes de cada prueba, limpiamos la lista de materias para comenzar desde cero
         Materia.limpiarListaMaterias();
     }
-
+    
     @Test
     public void testCrearVariasMaterias() {
         // Crear varias materias
@@ -31,7 +31,7 @@ public class MateriaTest {
         assertEquals(Integer.valueOf(3), materia3.getId());
         assertEquals("Ciencias", materia3.getNombre());
     }
-
+ 
     @Test
     public void testNoAgregarMateriaConMismoID() {
         // Crear una materia
@@ -99,9 +99,9 @@ public class MateriaTest {
 		
 		 Universidad administrador = new Universidad();
 		 
-		  Materia materiaUno = new Materia(1,"Programacion Basica I", null);
-		  Materia materiaDos = new Materia(2,"Programacion Basica II", null);
-		  Materia materiaTres = new Materia(3,"Programacion Web", null);
+		  Materia materiaUno = new Materia(1,"Programacion Basica I", 2);
+		  Materia materiaDos = new Materia(2,"Programacion Basica II", 3);
+		  Materia materiaTres = new Materia(3,"Programacion Web", 2);
 		  
 		  administrador.agregarMateria(materiaUno);
 		  administrador.agregarMateria(materiaDos);
@@ -119,7 +119,7 @@ public class MateriaTest {
 		
 		  Universidad administrador = new Universidad();
 		 
-		  Materia materiaUno = new Materia(1,"Programacion Basica I", null);
+		  Materia materiaUno = new Materia(1,"Programacion Basica I", 2);
 		  Materia materiaDos = new Materia(2,"Programacion Basica II", null);
 		  
 		  administrador.agregarMateria(materiaUno);

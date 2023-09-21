@@ -1,7 +1,6 @@
 package test;
 import org.junit.Before;
 import org.junit.Test;
-
 import tpIntra.Alumno;
 import tpIntra.Comision;
 import tpIntra.Materia;
@@ -20,14 +19,14 @@ public class UniversidadTest {
     private Alumno alumno;
     private Comision comision;
     private Universidad universidad;
-
+ 
     @Before
     public void setUp() {
     	universidad = new Universidad();
         alumno = new Alumno("123456789", "Juan", "Perez", "01/01/1990", "01/09/2023");
         comision = new Comision("COM-001");
     }
-    
+   
     @Before
     public void limpiarListaMaterias() {
         // Antes de cada prueba, limpiamos la lista de materias para comenzar desde cero
