@@ -8,14 +8,58 @@ public class Comision {
     private List<Profesor> profesores;
     private List<Alumno> alumnos;
     private CicloLectivo cicloActual;
+    private Materia materia;
     private List <Aula> aula;
+    private List<RegistroNotas> registroDeNotas;
     
 	public Comision(String codigo) {
         this.codigo = codigo;
         this.profesores = new ArrayList<>();
         this.alumnos = new ArrayList<>();
+        this.registroDeNotas = new ArrayList<>();
     }
-
+	
+	public Boolean registrarNota(RegistroNotas nuevaNota) {
+		
+		if(registroDeNotas.size()==0) {
+			return registroDeNotas.add(nuevaNota);
+		}else {
+			
+			if(!validarQueLaNotaNoExista(nuevaNota)) {
+				return false;
+			}
+			
+			return registroDeNotas.add(nuevaNota);
+			
+		}
+		
+	}
+	
+	public Boolean validarQueLaNotaNoExista(RegistroNotas notaEvaluada) {
+		Boolean val = false;
+		for(RegistroNotas rn : registroDeNotas) {
+			if(rn.getAlumno().getDni().equals(notaEvaluada.getAlumno().getDni())) {
+				
+				if(rn.getNota().getTipoDeExamen() == notaEvaluada.getNota().getTipoDeExamen()) {
+					val = false;
+				}else {
+					val = true;
+				}			
+			}
+		}
+		
+		return val;
+		
+	}
+	
+	public Materia getMateria() {
+		return materia;
+	}
+	
+	public void setMateria(Materia materia) {
+		this.materia = materia;
+	}
+	
 	public CicloLectivo getCicloActual() {
 		return cicloActual;
 	}
@@ -67,12 +111,6 @@ public class Comision {
         return turno;
     }
 
-    public String getMateria() {
-        // Supongamos que el nombre de la materia es "Materia1" en este ejemplo
-        String materia = "Materia1"; // Puedes ajustar esto según el nombre real de la materia
-
-        return materia;
-    }
 
     public void asignarAula(Aula aula) {
         if (this.aula == null) {

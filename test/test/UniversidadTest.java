@@ -6,7 +6,9 @@ import tpIntra.Aula;
 import tpIntra.CicloLectivo;
 import tpIntra.Comision;
 import tpIntra.Materia;
+import tpIntra.Nota;
 import tpIntra.Profesor;
+import tpIntra.TipoExamen;
 import tpIntra.Universidad;
 
 import static org.junit.Assert.*;
@@ -117,6 +119,35 @@ public class UniversidadTest {
         
         // Verificar que el alumno esté inscrito en la comisión
         assertTrue(comision.getAlumnos().contains(alumno));
+    }
+    
+    @Test
+    public void registrarNotaDeAlumno() {
+    	
+    	//Primero vamos a colocar todos los datos necesarios para iniciar con el test
+    	
+    	 Comision comision = new Comision("COM-001");
+    	 universidad.agregarComision(comision);
+    	 CicloLectivo nuevoCiclo = new CicloLectivo(LocalDate.of(2023,2,12), LocalDate.of(2023, 5, 28), LocalDate.of(2023, 1, 7), LocalDate.of(2023, 1, 15), 1);
+    	 universidad.agregarCicloLectivo(nuevoCiclo);  	 
+      	 Alumno alumno = new Alumno("12345678", "Juan", "Perez", "01/01/1990", "01/01/2023");
+      	 universidad.agregarAlumno(alumno);
+      	 Materia materiaUno = new Materia(1,"Programacion Basica I", null);
+		 Materia materiaDos = new Materia(2,"Programacion Basica II", null);
+      	universidad.agregarMateria(materiaUno);
+      	universidad.agregarMateria(materiaDos);
+      	 //Ahora vamos a conectar los datos
+      	 
+      	 universidad.asignarCicloAComision(comision, nuevoCiclo);
+      	 universidad.agregarCorrelatividad(materiaUno.getId(), materiaDos.getId());
+      	 universidad.asignarMateriaAComision(materiaUno, comision);
+      	 
+      	 //Vamos a crear la clase Nota y la claseRegistroNotas en Comision
+      	 
+      	 Nota primerNota = new Nota(TipoExamen.PRIMER_PARCIAL, 7);
+      	 
+      	 assertTrue(universidad.registrarNota(comision,alumno,primerNota));
+      	 
     }
     
 }
