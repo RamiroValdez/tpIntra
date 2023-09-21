@@ -13,7 +13,7 @@ public class CicloLectivo {
 
 	public CicloLectivo(LocalDate fechaInicio, LocalDate fechaFin, LocalDate fechaInicioInscripcion, LocalDate fechaFinInscripcion, Integer idCicloLectivo){
 		
-		this.fechaInicio = fechaInicio;
+		this.fechaInicio = fechaInicio; 
 		this.fechaFin = fechaFin;
 		this.fechaInicioInscripcion = fechaInicioInscripcion;
 		this.fechaFinInscripcion = fechaFinInscripcion;

@@ -1,7 +1,6 @@
 package test;
 import org.junit.Before;
 import org.junit.Test;
-
 import tpIntra.Alumno;
 import tpIntra.Comision;
 import tpIntra.Materia;
@@ -21,7 +20,7 @@ public class GestorInscripcionesTest {
     private Alumno alumno;
     private Comision comision;
     private Universidad universidad;
-
+ 
     @Before
     public void setUp() {
         gestor = new GestorInscripciones();
@@ -29,7 +28,7 @@ public class GestorInscripcionesTest {
         comision = new Comision("COM-001");
         universidad = new Universidad();
     }
-    
+   
     @Before
     public void limpiarListaMaterias() {
         // Antes de cada prueba, limpiamos la lista de materias para comenzar desde cero

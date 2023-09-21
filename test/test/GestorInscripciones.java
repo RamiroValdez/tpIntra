@@ -17,9 +17,9 @@ public class GestorInscripciones {
     private Date fechaInicioInscripcion;
 	private Date fechaaFinInscripcion;
 
-
+ 
     public boolean inscribirAlumnoAComision(Alumno alumno, Comision comision) {
-        
+         
     	// Verificar que el alumno y la comisión estén dados de alta
         if (!esAlumnoAlta(alumno) || !esComisionAlta(comision)) {
             return false;

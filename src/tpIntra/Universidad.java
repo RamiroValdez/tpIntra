@@ -4,10 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Universidad {
-    private static List<Alumno> listaAlumnos = new ArrayList<>(); // Declarar como estática
-    private static List<Comision> listaComisiones = new ArrayList<>(); // Declarar como estática
+	
+    private static List<Alumno> listaAlumnos = new ArrayList<>(); //Declarar como estática
+    private static List<Comision> listaComisiones = new ArrayList<>(); //Declarar como estática
     private static List<CicloLectivo> listaCiclosLectivos = new ArrayList<>();
-    private static List<Materia> listaMaterias = new ArrayList<>();
+    private static List<Materia> listaMaterias = new ArrayList<>(); 
     
     public void imprimirComisionesDisponibles() {
         for (Comision comision : listaComisiones) {
@@ -103,7 +104,7 @@ public class Universidad {
   		}
   		return false;
   	}
-      
+       
       public Boolean eliminarCorrelatividad(Integer id, Integer id2) {
   		
       	for (Materia m : listaMaterias) {

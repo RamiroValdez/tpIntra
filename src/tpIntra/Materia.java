@@ -17,7 +17,7 @@ public class Materia {
         // Verificar si ya existe una materia con el mismo ID
         if (existeMateriaConID(id)) {
             throw new IllegalArgumentException("Ya existe una materia con el mismo ID.");
-        }
+        } 
         listaMaterias.add(this); // Agregar la nueva materia a la lista
     }
 

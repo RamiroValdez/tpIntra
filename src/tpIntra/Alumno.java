@@ -13,7 +13,7 @@ public class Alumno {
     private List<Materia> correlativasAprobadas; // Lista de correlativas aprobadas
     private List<Comision> comisionesInscritas;
     private List<String> materiasAprobadas;
-
+ 
     public Alumno(String dni, String nombre, String apellido, String fechaNacimiento, String fechaIngreso) {
         this.dni = dni;
         this.nombre = nombre;
@@ -113,7 +113,7 @@ public class Alumno {
     public void agregarCorrelativaAprobada(Integer id, String nombreMateria) {
         // Crear una instancia de Materia usando el nombre proporcionado
    
-        Materia nuevaCorrelativa = new Materia(id, nombreMateria);
+        Materia nuevaCorrelativa = new Materia(id, nombreMateria, null);
 
         // Agregar la nueva correlativa aprobada a la lista
         correlativasAprobadas.add(nuevaCorrelativa);
