@@ -66,6 +66,28 @@ public class Universidad {
     		return listaMaterias.add(materiaAgregada);
     	}
 	}
+    
+    public Boolean asignarCorrelativdidad(Materia materiaAAsignar, Materia materiaAsignada) {
+
+        if(!listaMaterias.contains(materiaAAsignar)) {
+            return false;
+        }
+        if(!listaMaterias.contains(materiaAsignada)) {
+            return false;
+        }
+
+        for (Materia m : listaMaterias) {
+            if(m.getIdCorrelativa() == null) {
+                if(m.getId().equals(materiaAAsignar.getId())) {
+                    m.setIdCorrelativa(materiaAsignada.getId());
+                }
+            }
+        }
+
+        return true;
+
+    }
+    
     public Boolean agregarCorrelatividad(Integer id, Integer id2) {
 		
   		for (Materia m : listaMaterias) {
