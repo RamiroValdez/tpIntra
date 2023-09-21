@@ -5,10 +5,10 @@ import java.util.List;
 
 public class Universidad {
 	
-    private static List<Alumno> listaAlumnos = new ArrayList<>(); //Declarar como estática
-    private static List<Comision> listaComisiones = new ArrayList<>(); //Declarar como estática
-    private static List<CicloLectivo> listaCiclosLectivos = new ArrayList<>();
-    private static List<Materia> listaMaterias = new ArrayList<>(); 
+    private List<Alumno> listaAlumnos = new ArrayList<>(); //Declarar como estática
+    private List<Comision> listaComisiones = new ArrayList<>(); //Declarar como estática
+    private List<CicloLectivo> listaCiclosLectivos = new ArrayList<>();
+    private List<Materia> listaMaterias = new ArrayList<>(); 
     
     public void imprimirComisionesDisponibles() {
         for (Comision comision : listaComisiones) {
@@ -41,6 +41,20 @@ public class Universidad {
         listaComisiones.add(comision);
         return true;
     }
+ 
+ 	public Boolean agregarCicloLectivo(CicloLectivo ciclo) {
+ 		if(listaCiclosLectivos == null) {
+ 			return listaCiclosLectivos.add(ciclo);
+ 		}else {
+ 			for (CicloLectivo c : listaCiclosLectivos) {
+				if(c.getIdCicloLectivo() == ciclo.getIdCicloLectivo()) {
+					return false;
+				}
+			}
+ 			
+ 			return listaCiclosLectivos.add(ciclo);
+ 		}
+ 	}
 
     public static List<Alumno> getListaAlumnos() {
         return listaAlumnos;
@@ -49,6 +63,7 @@ public class Universidad {
     public static List<Comision> getListaComisiones() {
         return listaComisiones;
     }
+    
 
     public Boolean agregarMateria(Materia materiaAgregada) {
 	//No se puede agregar 2 materias con mismo Id
@@ -220,6 +235,26 @@ public class Universidad {
 
 	public static List<CicloLectivo> getListaCiclosLectivos() {
 		return listaCiclosLectivos;
+	}
+
+	public boolean asignarCicloAComision(Comision comision, CicloLectivo ciclo) {
+		
+		if(!listaComisiones.contains(comision)) {
+			return false;
+		}
+		
+		if(!listaCiclosLectivos.contains(ciclo)) {
+			return false;
+		}
+		
+		for (Comision c : listaComisiones) {
+			if(c.getCodigo().equals(comision.getCodigo())) {
+				c.setCicloActual(ciclo);
+				break;
+			}
+		}
+		
+		return true;
 	}
 
 	

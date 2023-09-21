@@ -2,12 +2,14 @@ package test;
 import org.junit.Before;
 import org.junit.Test;
 import tpIntra.Alumno;
+import tpIntra.CicloLectivo;
 import tpIntra.Comision;
 import tpIntra.Materia;
 import tpIntra.Universidad;
 
 import static org.junit.Assert.*;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -63,5 +65,19 @@ public class UniversidadTest {
         // Intentar inscribir al alumno en la comisión
         boolean inscripcionExitosa = universidad.inscribirAlumnoAComision(alumno, comision);
         assertFalse(inscripcionExitosa); // Asegurarse de que la inscripción falle
+    }
+    
+    @Test
+    public void testAsignarCicloLectivoAComision() {
+    	
+    	Comision nuevaComision = new Comision("1");
+    	
+    	CicloLectivo nuevoCiclo = new CicloLectivo(LocalDate.of(2023,2,12), LocalDate.of(2023, 5, 28), LocalDate.of(2023, 1, 7), LocalDate.of(2023, 1, 15), 1);
+    	
+    	universidad.agregarComision(nuevaComision);
+    	universidad.agregarCicloLectivo(nuevoCiclo);
+    	
+    	assertTrue(universidad.asignarCicloAComision(nuevaComision, nuevoCiclo));
+    	
     }
 }

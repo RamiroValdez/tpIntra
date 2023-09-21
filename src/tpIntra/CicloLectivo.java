@@ -20,7 +20,7 @@ public class CicloLectivo {
 		this.idCicloLectivo = idCicloLectivo;
 	
 	}
-	
+
 	public LocalDate getFechaFinInscripcion() {
 		return fechaFinInscripcion;
 	}
