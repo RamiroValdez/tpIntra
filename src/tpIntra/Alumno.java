@@ -113,7 +113,7 @@ public class Alumno {
     public void agregarCorrelativaAprobada(Integer id, String nombreMateria) {
         // Crear una instancia de Materia usando el nombre proporcionado
    
-        Materia nuevaCorrelativa = new Materia(id, nombreMateria);
+        Materia nuevaCorrelativa = new Materia(id, nombreMateria, null);
 
         // Agregar la nueva correlativa aprobada a la lista
         correlativasAprobadas.add(nuevaCorrelativa);

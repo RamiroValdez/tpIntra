@@ -15,19 +15,17 @@ import java.util.Date;
 
 import static org.junit.Assert.assertTrue;
 
-public class GestorInscripcionesTest {
+public class UniversidadTest {
 
-    private GestorInscripciones gestor;
     private Alumno alumno;
     private Comision comision;
     private Universidad universidad;
 
     @Before
     public void setUp() {
-        gestor = new GestorInscripciones();
+    	universidad = new Universidad();
         alumno = new Alumno("123456789", "Juan", "Perez", "01/01/1990", "01/09/2023");
         comision = new Comision("COM-001");
-        universidad = new Universidad();
     }
     
     @Before
@@ -51,7 +49,7 @@ public class GestorInscripcionesTest {
         alumno.agregarCorrelativaAprobada(4,"Correlativa4");
 
         // Ejecutar el método que deseas probar
-        boolean inscripcionExitosa = gestor.inscribirAlumnoAComision(alumno, comision);
+        boolean inscripcionExitosa = universidad.inscribirAlumnoAComision(alumno, comision);
 
         // Verificar que la inscripción sea exitosa
         assertTrue(inscripcionExitosa);
@@ -64,7 +62,7 @@ public class GestorInscripcionesTest {
         // por lo que la inscripción debe fallar.
         
         // Intentar inscribir al alumno en la comisión
-        boolean inscripcionExitosa = gestor.inscribirAlumnoAComision(alumno, comision);
+        boolean inscripcionExitosa = universidad.inscribirAlumnoAComision(alumno, comision);
         assertFalse(inscripcionExitosa); // Asegurarse de que la inscripción falle
     }
 }
