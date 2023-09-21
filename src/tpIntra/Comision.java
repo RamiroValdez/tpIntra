@@ -8,7 +8,8 @@ public class Comision {
     private List<Profesor> profesores;
     private List<Alumno> alumnos;
     private CicloLectivo cicloActual;
-
+    private List <Aula> aula;
+    
 	public Comision(String codigo) {
         this.codigo = codigo;
         this.profesores = new ArrayList<>();
@@ -73,6 +74,12 @@ public class Comision {
         return materia;
     }
 
+    public void asignarAula(Aula aula) {
+        if (this.aula == null) {
+            this.aula = new ArrayList<>(); // Inicializa la lista si es nula
+        }
+        this.aula.add(aula); // Agrega el objeto Aula a la lista
+    }
 
 
 

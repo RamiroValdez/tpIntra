@@ -2,9 +2,11 @@ package test;
 import org.junit.Before;
 import org.junit.Test;
 import tpIntra.Alumno;
+import tpIntra.Aula;
 import tpIntra.CicloLectivo;
 import tpIntra.Comision;
 import tpIntra.Materia;
+import tpIntra.Profesor;
 import tpIntra.Universidad;
 
 import static org.junit.Assert.*;
@@ -80,4 +82,41 @@ public class UniversidadTest {
     	assertTrue(universidad.asignarCicloAComision(nuevaComision, nuevoCiclo));
     	
     }
+    
+    @Test
+    public void testAsignarProfesorAulaAlumnosAComision() {
+        Universidad universidad = new Universidad();
+        
+        // Crear un alumno de prueba
+        Alumno alumno = new Alumno("12345678", "Juan", "Perez", "01/01/1990", "01/01/2023");
+        universidad.agregarAlumno(alumno);
+        
+        // Crear un profesor de prueba
+        Profesor profesor = new Profesor("98765432", "Maria", "Gomez", "15/05/1980", "Materia1");
+        
+        // Crear un aula de prueba
+        Aula aula = new Aula("Aula-001", 30);
+        
+        // Crear una comisión de prueba
+        Comision comision = new Comision("COM-001");
+
+        // Asignar profesor a la comisión
+        comision.agregarProfesor(profesor);
+        
+        // Asignar aula a la comisión
+        comision.asignarAula(aula);
+        
+        // Inscribir al alumno en la comisión
+        assertTrue(universidad.inscribirAlumnoAComision(alumno, comision));
+        
+        // Verificar que el profesor esté asignado a la comisión
+        assertTrue(comision.getProfesores().contains(profesor));
+        
+        // Verificar que el aula esté asignada a la comisión
+        assertEquals(aula, comision.getAula());
+        
+        // Verificar que el alumno esté inscrito en la comisión
+        assertTrue(comision.getAlumnos().contains(alumno));
+    }
+    
 }

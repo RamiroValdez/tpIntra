@@ -1,6 +1,5 @@
 package tpIntra;
 
-
 public class Aula {
     
 	private String nombre;

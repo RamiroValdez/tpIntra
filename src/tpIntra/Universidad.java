@@ -8,7 +8,8 @@ public class Universidad {
     private List<Alumno> listaAlumnos = new ArrayList<>(); //Declarar como estática
     private List<Comision> listaComisiones = new ArrayList<>(); //Declarar como estática
     private List<CicloLectivo> listaCiclosLectivos = new ArrayList<>();
-    private List<Materia> listaMaterias = new ArrayList<>(); 
+    private List<Materia> listaMaterias = new ArrayList<>();
+    private List <Aula> aula = new ArrayList<>();
     
     public void imprimirComisionesDisponibles() {
         for (Comision comision : listaComisiones) {
@@ -56,11 +57,11 @@ public class Universidad {
  		}
  	}
 
-    public static List<Alumno> getListaAlumnos() {
-        return listaAlumnos;
-    }
+ 	public List<Alumno> getListaAlumnos() {
+ 	    return listaAlumnos;
+ 	}
 
-    public static List<Comision> getListaComisiones() {
+    public List<Comision> getListaComisiones() {
         return listaComisiones;
     }
     
@@ -142,7 +143,7 @@ public class Universidad {
       public boolean inscribirAlumnoAComision(Alumno alumno, Comision comision) {
           
       	// Verificar que el alumno y la comisión estén dados de alta
-          if (!esAlumnoAlta(alumno) || !esComisionAlta(comision)) {
+          if (!esAlumnoAlta(null, alumno) || !esComisionAlta(null,comision)) {
               return false;
           }
 
@@ -179,18 +180,13 @@ public class Universidad {
           return correlativasAprobadas.size() >= 4;
       }
       
-      private boolean esAlumnoAlta(Alumno alumno) {
-          // Supongamos que tienes una lista de alumnos dados de alta en la Universidad
-          List<Alumno> listaAlumnos = Universidad.getListaAlumnos();
+      private boolean esAlumnoAlta(Universidad universidad, Alumno alumno) {
 
           // Verificar si el alumno está en la lista de alumnos
           return listaAlumnos.contains(alumno);
       }
 
-      private boolean esComisionAlta(Comision comision) {
-          // Supongamos que tienes una lista de comisiones dadas de alta en la Universidad
-          List<Comision> listaComisiones = Universidad.getListaComisiones();
-
+      private boolean esComisionAlta(Universidad universidad, Comision comision) {
           // Verificar si la comisión está en la lista de comisiones
           return listaComisiones.contains(comision);
       }
@@ -233,7 +229,7 @@ public class Universidad {
           return materiasAprobadas.contains(materiaComision);
       }
 
-	public static List<CicloLectivo> getListaCiclosLectivos() {
+	public List<CicloLectivo> getListaCiclosLectivos() {
 		return listaCiclosLectivos;
 	}
 
@@ -256,7 +252,6 @@ public class Universidad {
 		
 		return true;
 	}
-
 	
 
 }
