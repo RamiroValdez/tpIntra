@@ -125,6 +125,100 @@ public class Universidad {
       	return false;
       	
       }
+      
+      public boolean inscribirAlumnoAComision(Alumno alumno, Comision comision) {
+          
+      	// Verificar que el alumno y la comisión estén dados de alta
+          if (!esAlumnoAlta(alumno) || !esComisionAlta(comision)) {
+              return false;
+          }
+
+          // Verificar que el alumno tenga aprobadas todas las correlativas (4 o más)
+          if (!tieneCorrelativasAprobadas(alumno)) {
+              return false;
+          }
+
+
+          // Verificar que no se exceda la cantidad de alumnos permitidos en el aula
+          if (excedeCapacidadAula(comision)) {
+              return false;
+          }
+
+          // Verificar que el alumno no esté inscrito a otra comisión el mismo día y turno
+          if (estaInscritoEnOtraComision(alumno, comision)) {
+              return false;
+          }
+
+          // Verificar que el alumno no haya aprobado previamente la materia
+          if (yaAproboMateria(alumno, comision)) {
+              return false;
+          }
+
+          // Si todas las verificaciones pasan, inscribir al alumno a la comisión
+          comision.agregarAlumno(alumno);
+          return true;
+      }
+      private boolean tieneCorrelativasAprobadas(Alumno alumno) {
+          // Supongamos que tienes una lista de correlativas aprobadas por el alumno
+          List<Materia> correlativasAprobadas = alumno.getCorrelativasAprobadas();
+
+          // Verificar si el alumno tiene al menos 4 correlativas aprobadas
+          return correlativasAprobadas.size() >= 4;
+      }
+      
+      private boolean esAlumnoAlta(Alumno alumno) {
+          // Supongamos que tienes una lista de alumnos dados de alta en la Universidad
+          List<Alumno> listaAlumnos = Universidad.getListaAlumnos();
+
+          // Verificar si el alumno está en la lista de alumnos
+          return listaAlumnos.contains(alumno);
+      }
+
+      private boolean esComisionAlta(Comision comision) {
+          // Supongamos que tienes una lista de comisiones dadas de alta en la Universidad
+          List<Comision> listaComisiones = Universidad.getListaComisiones();
+
+          // Verificar si la comisión está en la lista de comisiones
+          return listaComisiones.contains(comision);
+      }
+      
+      private boolean excedeCapacidadAula(Comision comision) {
+          // Supongamos que tienes la capacidad máxima del aula de la comisión
+          int capacidadMaximaAula = comision.getAula().getCapacidadMaxima();
+
+          // Verificar si la cantidad de alumnos inscritos en la comisión excede la capacidad del aula
+          return comision.getAlumnos().size() >= capacidadMaximaAula;
+      }
+      
+      private boolean estaInscritoEnOtraComision(Alumno alumno, Comision comision) {
+          // Supongamos que tienes la lista de comisiones a las que el alumno está inscrito
+          List<Comision> comisionesInscritas = alumno.getComisionesInscritas();
+
+          // Supongamos que también tienes la información de día y turno de la comisión
+          String diaComisionActual = comision.getDia();
+          String turnoComisionActual = comision.getTurno();
+
+          // Verificar si el alumno está inscrito en otra comisión el mismo día y turno
+          for (Comision otraComision : comisionesInscritas) {
+              if (otraComision != comision &&
+                  diaComisionActual.equals(otraComision.getDia()) &&
+                  turnoComisionActual.equals(otraComision.getTurno())) {
+                  return true;
+              }
+          }
+          return false;
+      }
+
+      private boolean yaAproboMateria(Alumno alumno, Comision comision) {
+          // Supongamos que tienes la lista de materias aprobadas por el alumno
+          List<String> materiasAprobadas = alumno.getMateriasAprobadas();
+
+          // Supongamos que también tienes la materia de la comisión
+          String materiaComision = comision.getMateria();
+
+          // Verificar si el alumno ya aprobó la materia de la comisión
+          return materiasAprobadas.contains(materiaComision);
+      }
 
 	public static List<CicloLectivo> getListaCiclosLectivos() {
 		return listaCiclosLectivos;
