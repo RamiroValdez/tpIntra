@@ -181,17 +181,12 @@ public class Universidad {
     	}
 
       private boolean esAlumnoAlta(Universidad universidad, Alumno alumno) {
-    	    // Verificar si el alumno está en la lista de alumnos
     	    boolean esAlta = listaAlumnos.contains(alumno);
-
-
     	    return esAlta;
     	}
 
     	private boolean esComisionAlta(Universidad universidad, Comision comision) {
-    	    // Verificar si la comisión está en la lista de comisiones
     	    boolean esAlta = listaComisiones.contains(comision);
-
     	    return esAlta;
     	}
 
@@ -269,5 +264,55 @@ public class Universidad {
 		return true;
 	}
 	
+	public boolean registrarNota(Comision comision, Alumno alumno, Nota nota) {
+
+        if(!esComisionAlta(null, comision)) {
+        return false;
+        }
+        if(!esAlumnoAlta(null, alumno)) {
+            return false;
+        }
+
+        Boolean val = false;
+        for (Comision co : listaComisiones) {
+            if(co.getCodigo().equals(comision.getCodigo())) {
+
+                val = co.registrarNota(new RegistroNotas(alumno,nota));
+
+            }
+        }
+
+        return val;
+
+
+    }
+	
+	public Boolean asignarMateriaAComision(Materia materia, Comision comision) {
+
+        if(!esMateriaAlta(materia)) {
+            return false;
+        }
+
+        if(!esComisionAlta(comision)) {
+            return false;
+        }
+
+        for (Comision co : listaComisiones) {
+            if(co.getCodigo().equals(comision.getCodigo())) {
+                if(co.getMateria() == null) {
+                    co.setMateria(materia);
+                }
+            }
+        }
+
+        return true;
+
+    }
+	
+	private Boolean esMateriaAlta(Materia materia) {
+
+        return listaMaterias.contains(materia);
+
+    }
 
 }

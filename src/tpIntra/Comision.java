@@ -9,6 +9,8 @@ public class Comision {
     private List<Alumno> alumnos;
     private CicloLectivo cicloActual;
     private List <Aula> aula;
+	private Materia materia;
+	private List<RegistroNotas> registroDeNotas;
     
 	public Comision(String codigo) {
         this.codigo = codigo;
@@ -93,6 +95,41 @@ public class Comision {
         this.aula.add(aula); // Agrega el objeto Aula a la lista
     }
 
+    public void setMateria(Materia materia) {
+		this.materia = materia;
+	}
+    
+    public Boolean registrarNota(RegistroNotas nuevaNota) {
 
+        if(registroDeNotas.size()==0) {
+            return registroDeNotas.add(nuevaNota);
+        }else {
+
+            if(!validarQueLaNotaNoExista(nuevaNota)) {
+                return false;
+            }
+
+            return registroDeNotas.add(nuevaNota);
+
+        }
+
+    }
+    
+    public Boolean validarQueLaNotaNoExista(RegistroNotas notaEvaluada) {
+        Boolean val = false;
+        for(RegistroNotas rn : registroDeNotas) {
+            if(rn.getAlumno().getDni().equals(notaEvaluada.getAlumno().getDni())) {
+
+                if(rn.getNota().getTipoDeExamen() == notaEvaluada.getNota().getTipoDeExamen()) {
+                    val = false;
+                }else {
+                    val = true;
+                }
+            }
+        }
+
+        return val;
+
+    }
 
 }
