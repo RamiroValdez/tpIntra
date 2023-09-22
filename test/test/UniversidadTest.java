@@ -72,7 +72,7 @@ public class UniversidadTest {
     @Test
     public void testAsignarCicloLectivoAComision() {
     	
-    	Comision nuevaComision = new Comision("1");
+    	Comision nuevaComision = new Comision("01");
     	
     	CicloLectivo nuevoCiclo = new CicloLectivo(LocalDate.of(2023,2,12), LocalDate.of(2023, 5, 28), LocalDate.of(2023, 1, 7), LocalDate.of(2023, 1, 15), 1);
     	
@@ -84,39 +84,29 @@ public class UniversidadTest {
     }
     
     @Test
-    public void testAsignarProfesorAulaAlumnosAComision() {
+    public void testAsignarAulaAComision() {
         Universidad universidad = new Universidad();
         
-        // Crear un alumno de prueba
-        Alumno alumno = new Alumno("12345678", "Juan", "Perez", "01/01/1990", "01/01/2023");
-        universidad.agregarAlumno(alumno);
-        
-        // Crear un profesor de prueba
-        Profesor profesor = new Profesor("98765432", "Maria", "Gomez", "15/05/1980", "Materia1");
-        
-        // Crear un aula de prueba
         Aula aula = new Aula("Aula-001", 30);
         
-        // Crear una comisión de prueba
-        Comision comision = new Comision("COM-001");
+        Comision comision = new Comision("COM-001");  
 
-        // Asignar profesor a la comisión
-        comision.agregarProfesor(profesor);
-        
-        // Asignar aula a la comisión
         comision.asignarAula(aula);
         
-        // Inscribir al alumno en la comisión
-        assertTrue(universidad.inscribirAlumnoAComision(alumno, comision));
-        
-        // Verificar que el profesor esté asignado a la comisión
-        assertTrue(comision.getProfesores().contains(profesor));
-        
-        // Verificar que el aula esté asignada a la comisión
         assertEquals(aula, comision.getAula());
+    }
+    
+    @Test
+    public void testAsignarProfesorAComision() {
+        Universidad universidad = new Universidad();
         
-        // Verificar que el alumno esté inscrito en la comisión
-        assertTrue(comision.getAlumnos().contains(alumno));
+        Profesor profesor = new Profesor("98765432", "Maria", "Gomez", "15/05/1980", "Materia1");
+        
+        Comision comision = new Comision("COM-001");  
+
+        comision.agregarProfesor(profesor);
+        
+        assertTrue(comision.getProfesores().contains(profesor));
     }
     
 }

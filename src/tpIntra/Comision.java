@@ -13,7 +13,19 @@ public class Comision {
 	public Comision(String codigo) {
         this.codigo = codigo;
         this.profesores = new ArrayList<>();
-        this.alumnos = new ArrayList<>();
+        this.alumnos = new ArrayList<>(); 
+    }
+	
+	@Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        Comision comision = (Comision) obj;
+        return codigo.equals(comision.codigo);
     }
 
 	public CicloLectivo getCicloActual() {

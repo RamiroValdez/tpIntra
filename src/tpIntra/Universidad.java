@@ -8,14 +8,8 @@ public class Universidad {
     private List<Alumno> listaAlumnos = new ArrayList<>(); //Declarar como estática
     private List<Comision> listaComisiones = new ArrayList<>(); //Declarar como estática
     private List<CicloLectivo> listaCiclosLectivos = new ArrayList<>();
-    private List<Materia> listaMaterias = new ArrayList<>();
+    private List<Materia> listaMaterias = new ArrayList<>(); 
     private List <Aula> aula = new ArrayList<>();
-    
-    public void imprimirComisionesDisponibles() {
-        for (Comision comision : listaComisiones) {
-            System.out.println(comision.getCodigo());
-        }
-    }
 
     public boolean agregarAlumno(Alumno alumno) {
         // Verifica si ya existe un alumno con el mismo DNI
@@ -30,18 +24,21 @@ public class Universidad {
         return true;
     }
     
- public boolean agregarComision(Comision comision) {
+    public boolean agregarComision(Comision comision) {
         // Verifica si ya existe una comisión con el mismo código
         for (Comision c : listaComisiones) {
             if (c.getCodigo().equals(comision.getCodigo())) {
+                System.out.println("La comisión con código " + comision.getCodigo() + " ya existe en la lista.");
                 return false; // El código de comisión ya existe
             }
         }
 
         // Si el código no existe en la lista, agregar la comisión
         listaComisiones.add(comision);
+        System.out.println("Comisión con código " + comision.getCodigo() + " agregada correctamente.");
         return true;
     }
+
  
  	public Boolean agregarCicloLectivo(CicloLectivo ciclo) {
  		if(listaCiclosLectivos == null) {
@@ -173,61 +170,80 @@ public class Universidad {
           return true;
       }
       private boolean tieneCorrelativasAprobadas(Alumno alumno) {
-          // Supongamos que tienes una lista de correlativas aprobadas por el alumno
-          List<Materia> correlativasAprobadas = alumno.getCorrelativasAprobadas();
+    	    // Supongamos que tienes una lista de correlativas aprobadas por el alumno
+    	    List<Materia> correlativasAprobadas = alumno.getCorrelativasAprobadas();
 
-          // Verificar si el alumno tiene al menos 4 correlativas aprobadas
-          return correlativasAprobadas.size() >= 4;
-      }
-      
+    	    // Verificar si el alumno tiene al menos 4 correlativas aprobadas
+    	    boolean tieneAprobadas = correlativasAprobadas.size() >= 4;
+
+
+    	    return tieneAprobadas;
+    	}
+
       private boolean esAlumnoAlta(Universidad universidad, Alumno alumno) {
+    	    // Verificar si el alumno está en la lista de alumnos
+    	    boolean esAlta = listaAlumnos.contains(alumno);
 
-          // Verificar si el alumno está en la lista de alumnos
-          return listaAlumnos.contains(alumno);
-      }
 
-      private boolean esComisionAlta(Universidad universidad, Comision comision) {
-          // Verificar si la comisión está en la lista de comisiones
-          return listaComisiones.contains(comision);
-      }
-      
-      private boolean excedeCapacidadAula(Comision comision) {
-          // Supongamos que tienes la capacidad máxima del aula de la comisión
-          int capacidadMaximaAula = comision.getAula().getCapacidadMaxima();
+    	    return esAlta;
+    	}
 
-          // Verificar si la cantidad de alumnos inscritos en la comisión excede la capacidad del aula
-          return comision.getAlumnos().size() >= capacidadMaximaAula;
-      }
-      
-      private boolean estaInscritoEnOtraComision(Alumno alumno, Comision comision) {
-          // Supongamos que tienes la lista de comisiones a las que el alumno está inscrito
-          List<Comision> comisionesInscritas = alumno.getComisionesInscritas();
+    	private boolean esComisionAlta(Universidad universidad, Comision comision) {
+    	    // Verificar si la comisión está en la lista de comisiones
+    	    boolean esAlta = listaComisiones.contains(comision);
 
-          // Supongamos que también tienes la información de día y turno de la comisión
-          String diaComisionActual = comision.getDia();
-          String turnoComisionActual = comision.getTurno();
+    	    return esAlta;
+    	}
 
-          // Verificar si el alumno está inscrito en otra comisión el mismo día y turno
-          for (Comision otraComision : comisionesInscritas) {
-              if (otraComision != comision &&
-                  diaComisionActual.equals(otraComision.getDia()) &&
-                  turnoComisionActual.equals(otraComision.getTurno())) {
-                  return true;
-              }
-          }
-          return false;
-      }
+    	
+    	private boolean excedeCapacidadAula(Comision comision) {
+    	    // Supongamos que tienes la capacidad máxima del aula de la comisión
+    	    int capacidadMaximaAula = comision.getAula().getCapacidadMaxima();
 
-      private boolean yaAproboMateria(Alumno alumno, Comision comision) {
-          // Supongamos que tienes la lista de materias aprobadas por el alumno
-          List<String> materiasAprobadas = alumno.getMateriasAprobadas();
+    	    // Verificar si la cantidad de alumnos inscritos en la comisión excede la capacidad del aula
+    	    boolean excedeCapacidad = comision.getAlumnos().size() >= capacidadMaximaAula;
 
-          // Supongamos que también tienes la materia de la comisión
-          String materiaComision = comision.getMateria();
 
-          // Verificar si el alumno ya aprobó la materia de la comisión
-          return materiasAprobadas.contains(materiaComision);
-      }
+    	    return excedeCapacidad;
+    	}
+
+    	private boolean estaInscritoEnOtraComision(Alumno alumno, Comision comision) {
+    	    // Supongamos que tienes la lista de comisiones a las que el alumno está inscrito
+    	    List<Comision> comisionesInscritas = alumno.getComisionesInscritas();
+
+    	    // Supongamos que también tienes la información de día y turno de la comisión
+    	    String diaComisionActual = comision.getDia();
+    	    String turnoComisionActual = comision.getTurno();
+
+    	    // Obtener el código único de la comisión actual
+    	    String codigoComisionActual = comision.getCodigo();
+
+    	    // Verificar si el alumno está inscrito en otra comisión el mismo día y turno
+    	    for (Comision otraComision : comisionesInscritas) {
+    	        // Comparar por igualdad de códigos en lugar de referencias
+    	        boolean estaInscrito = !codigoComisionActual.equals(otraComision.getCodigo()) &&
+    	                               diaComisionActual.equals(otraComision.getDia()) &&
+    	                               turnoComisionActual.equals(otraComision.getTurno());
+
+    	        if (estaInscrito) {
+    	            return true;
+    	        }
+    	    }
+    	    return false;
+    	}
+
+    	private boolean yaAproboMateria(Alumno alumno, Comision comision) {
+    	    // Supongamos que tienes la lista de materias aprobadas por el alumno
+    	    List<String> materiasAprobadas = alumno.getMateriasAprobadas();
+
+    	    // Supongamos que también tienes la materia de la comisión
+    	    String materiaComision = comision.getMateria();
+
+    	    // Verificar si el alumno ya aprobó la materia de la comisión
+    	    boolean yaAprobo = materiasAprobadas.contains(materiaComision);
+
+    	    return yaAprobo;
+    	}
 
 	public List<CicloLectivo> getListaCiclosLectivos() {
 		return listaCiclosLectivos;
