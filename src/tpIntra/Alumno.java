@@ -12,7 +12,7 @@ public class Alumno {
     private String fechaIngreso;
     private List<Materia> correlativasAprobadas; // Lista de correlativas aprobadas
     private List<Comision> comisionesInscritas;
-    private List<String> materiasAprobadas;
+    private List<Materia> materiasAprobadas;
  
     public Alumno(String dni, String nombre, String apellido, String fechaNacimiento, String fechaIngreso) {
         this.dni = dni;
@@ -83,11 +83,11 @@ public class Alumno {
         this.comisionesInscritas = comisionesInscritas;
     }
 
-    public List<String> getMateriasAprobadas() {
+    public List<Materia> getMateriasAprobadas() {
         return materiasAprobadas;
     }
 
-    public void setMateriasAprobadas(List<String> materiasAprobadas) {
+    public void setMateriasAprobadas(List<Materia> materiasAprobadas) {
         this.materiasAprobadas = materiasAprobadas;
     }
 
@@ -106,7 +106,7 @@ public class Alumno {
         comisionesInscritas.add(comision);
     }
 
-    public void aprobarMateria(String materia) {
+    public void aprobarMateria(Materia materia) {
         // Agregar una materia aprobada a la lista de materias aprobadas
         materiasAprobadas.add(materia);
     }

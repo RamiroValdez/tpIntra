@@ -16,8 +16,13 @@ public class Comision {
 	public Comision(String codigo) {
         this.codigo = codigo;
         this.profesores = new ArrayList<>();
+<<<<<<< HEAD
         this.alumnos = new ArrayList<>();
         this.registrosNotas = new ArrayList<>();
+=======
+        this.alumnos = new ArrayList<>(); 
+        this.registroDeNotas = new ArrayList<>();
+>>>>>>> ramaNotas
     }
 	
 	@Override
@@ -83,7 +88,14 @@ public class Comision {
         return turno;
     }
 
+<<<<<<< HEAD
     public Materia getMateria() {      
+=======
+    public Materia getMateria() {
+        // Supongamos que el nombre de la materia es "Materia1" en este ejemplo
+    // Puedes ajustar esto según el nombre real de la materia
+
+>>>>>>> ramaNotas
         return materia;
     }
 

@@ -16,4 +16,11 @@ public class Nota {
     public Integer getValorNota() {  
         return valorNota;
     }
+    
+    public void setValorNota(Integer valorNota) {
+	
+    if(valorNota <= 10 && valorNota > 0) {
+    	this.valorNota = valorNota;
+    }
+	}
 }

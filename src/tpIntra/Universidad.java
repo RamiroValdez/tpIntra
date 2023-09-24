@@ -2,7 +2,7 @@ package tpIntra;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.Iterator;
 public class Universidad {
 	
     private List<Alumno> listaAlumnos = new ArrayList<>(); //Declarar como estática
@@ -101,13 +101,13 @@ public class Universidad {
 
     }
     
-    public Boolean agregarCorrelatividad(Integer id, Integer id2) {
+    public Boolean agregarCorrelatividad(Integer id, Integer valorCorrelatividad) {
 		
   		for (Materia m : listaMaterias) {
   			if(m.getId().equals(id)) {
   				//Solo permite el agregado de correlativas si no tiene ninguna asignada.
   				if(m.getIdCorrelativa() == null) { 
-  				m.setIdCorrelativa(id2);
+  				m.setIdCorrelativa(valorCorrelatividad);
   				return true;
   				}
   				
@@ -229,7 +229,7 @@ public class Universidad {
 
     	private boolean yaAproboMateria(Alumno alumno, Comision comision) {
     	    // Supongamos que tienes la lista de materias aprobadas por el alumno
-    	    List<String> materiasAprobadas = alumno.getMateriasAprobadas();
+    	    List<Materia> materiasAprobadas = alumno.getMateriasAprobadas();
 
     	    // Supongamos que también tienes la materia de la comisión
     	    Materia materiaComision = comision.getMateria();
@@ -264,13 +264,43 @@ public class Universidad {
 		return true;
 	}
 	
+	public Integer buscarCorrelativa(Materia materia) {
+		
+		Integer valorBuscado = 0;
+		if(esMateriaAlta(materia)) {
+			
+			for (Materia m : listaMaterias) {
+				if(m.getId()==materia.getId()) {
+					valorBuscado = m.getIdCorrelativa();
+				}
+			}
+			
+		}
+		
+		return valorBuscado;
+		
+	}
+
+
+	
 	public boolean registrarNota(Comision comision, Alumno alumno, Nota nota) {
 
+				
         if(!esComisionAlta(comision)) {
         return false;
         }
         if(!esAlumnoAlta(alumno)) {
             return false;
+        }
+        if(nota.getValorNota()>= 7) {
+        	if(saberSiTieneLasCorrelativasAprobadas(alumno, comision.getMateria().getIdCorrelativa())==false) {
+        		return false;
+        	}
+        }
+        if(buscarCorrelativa(comision.getMateria())!=null){
+        	if(yaAproboMateria(alumno, comision)) {
+        		
+        	}
         }
 
         Boolean val = false;
@@ -315,6 +345,7 @@ public class Universidad {
 
     }
 	
+<<<<<<< HEAD
 	public Nota obtenerNota(Alumno alumno, Materia materia) {
 	    for (Comision comision : listaComisiones) {
 	        if (comision.getAlumnos().contains(alumno) && comision.getMateria().equals(materia)) {
@@ -333,5 +364,33 @@ public class Universidad {
 	}
 
 
+=======
+	public Boolean saberSiTieneLasCorrelativasAprobadas(Alumno alumno, Integer valorCorrelatividad) {
+		
+		Boolean validacion = true;
+		
+		if(!esAlumnoAlta(alumno)) {
+			return false;
+		}
+		
+		List<Materia> materiasCorrelativas = new ArrayList<>();
+		
+		for (Materia materia : listaMaterias) {
+			if(materia.getIdCorrelativa() == valorCorrelatividad) {
+				materiasCorrelativas.add(materia);
+			}
+		}
+		
+		for (Materia materia1 : materiasCorrelativas) {
+			if(alumno.getMateriasAprobadas().contains(materia1)) {
+				validacion = true;
+			};
+		}
+		
+		return validacion;
+		
+		
+	}
+>>>>>>> ramaNotas
 
 }
