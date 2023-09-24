@@ -218,5 +218,42 @@ public class UniversidadTest {
         // El promedio esperado es (7 + 8) / 2 = 7.5
         assertEquals(7.5, promedio, 0.01); // Usamos un delta pequeño para manejar posibles errores de redondeo
     }
+
     
+    @Test
+    public void testObtenerListasMateriasQueFaltanCursar() {
+    	
+    	   Alumno alumno = new Alumno("12345678", "Juan", "Perez", "01/01/1990", "01/01/2023");
+           
+    	   Materia materia = new Materia(1, "Programacion Basica I", null);
+           Materia materiaDos = new Materia(2,"Programacion Basica II", null);
+           Comision comision = new Comision("COM-115");
+           CicloLectivo nuevoCiclo = new CicloLectivo(LocalDate.of(2023,2,12), LocalDate.of(2023, 5, 28), LocalDate.of(2023, 1, 7), LocalDate.of(2023, 1, 15), 1);
+       	
+           Universidad universidad = new Universidad();
+
+           universidad.agregarAlumno(alumno);
+           universidad.agregarMateria(materia);
+           universidad.agregarMateria(materiaDos);
+           universidad.agregarComision(comision);
+           
+           universidad.asignarMateriaAComision(materia, comision);
+           universidad.asignarCicloAComision(comision, nuevoCiclo);
+           universidad.inscribirAlumnoAComision(alumno, comision);
+           universidad.registrarNota(comision, alumno, new Nota(TipoExamen.PRIMER_PARCIAL,10));
+           universidad.registrarNota(comision, alumno, new Nota(TipoExamen.SEGUNDO_PARCIAL,10));
+           universidad.registrarNota(comision, alumno, new Nota(TipoExamen.FINAL,10));
+           
+           for (Alumno a : universidad.getListaAlumnos()) {
+			if(a.getDni().equals(alumno.getDni())) {
+				a.aprobarMateria(materia);
+			}
+			
+			assertEquals(1,universidad.obtenerMateriasQueLeFaltanCursarAUnAlumno(alumno).size());
+			assertTrue(universidad.obtenerMateriasQueLeFaltanCursarAUnAlumno(alumno).contains(materiaDos));
+		}
+    	
+    	
+    	
+    }
 }
