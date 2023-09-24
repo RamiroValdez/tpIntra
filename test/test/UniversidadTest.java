@@ -179,6 +179,44 @@ public class UniversidadTest {
         assertEquals("El valor de la nota no coincide", Integer.valueOf(7), notaObtenida.getValorNota()); 
     }
 
+    @Test
+    public void testCalcularPromedio() {
+        // Crear una instancia de Universidad
+        Universidad universidad = new Universidad();
 
+        // Crear instancias de Alumnos, Comisiones, Materias y registros de notas para pruebas
+        Alumno alumno1 = new Alumno("115", "Juan", "Perez", "01/01/1990", "01/09/2023");
+        Alumno alumno2 = new Alumno("987654321", "Ana", "Gomez", "15/03/1995", "01/09/2023");
+        Comision comision1 = new Comision("COM-001");
+        Comision comision2 = new Comision("COM-002");
+        Materia materia = new Materia(1, "Programacion Basica I", null);
+        CicloLectivo cicloLectivo = new CicloLectivo(LocalDate.now(), LocalDate.now().plusMonths(4), LocalDate.now().minusMonths(1), LocalDate.now().plusDays(7), 1);
+        RegistroNotas registro1 = new RegistroNotas(alumno1, new Nota(TipoExamen.PRIMER_PARCIAL, 7));
+        RegistroNotas registro2 = new RegistroNotas(alumno1, new Nota(TipoExamen.SEGUNDO_PARCIAL, 8));
+        RegistroNotas registro3 = new RegistroNotas(alumno2, new Nota(TipoExamen.PRIMER_PARCIAL, 6));
+
+        // Agregar alumnos, comisiones, materias, ciclo lectivo y registros de notas a la universidad
+        universidad.agregarAlumno(alumno1);
+        universidad.agregarAlumno(alumno2);
+        universidad.agregarComision(comision1);
+        universidad.agregarComision(comision2); 
+        universidad.agregarMateria(materia);
+        universidad.agregarCicloLectivo(cicloLectivo);
+        universidad.asignarCicloAComision(comision1, cicloLectivo);
+        universidad.asignarCicloAComision(comision2, cicloLectivo);
+        universidad.asignarMateriaAComision(materia, comision1);
+        universidad.inscribirAlumnoAComision(alumno1, comision1);
+        
+        // Agregar registros de notas a las comisiones
+        comision1.agregarRegistroNotas(registro1);
+        comision1.agregarRegistroNotas(registro2);
+        comision2.agregarRegistroNotas(registro3);
+        
+        // Calcular el promedio de notas del alumno con DNI "123456789"
+        double promedio = universidad.calcularPromedio("115");
+
+        // El promedio esperado es (7 + 8) / 2 = 7.5
+        assertEquals(7.5, promedio, 0.01); // Usamos un delta pequeño para manejar posibles errores de redondeo
+    }
     
 }

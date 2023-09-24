@@ -385,8 +385,28 @@ public class Universidad {
 		}
 		
 		return validacion;
-		
-		
 	}
+	
+	public double calcularPromedio(String idAlumno) {
+		for(Comision comision : listaComisiones){ }
+		Double totalNota = 0.0;
+		        Integer cantidadNotas = 0;
+
+		        for (Comision comision : listaComisiones) {
+		            for(RegistroNotas registro : comision.getRegistrosNotas()) {
+		                if(registro.getAlumno().getDni().equals(idAlumno)) {
+		                    if(registro.getNota().getValorNota()!=null) {
+		                        totalNota+=registro.getNota().getValorNota();
+		                        cantidadNotas++;
+		                    }
+		                }
+		            }
+		        }
+
+		        Double promedio = totalNota / cantidadNotas;
+
+		        return promedio;
+	}
+
 
 }
