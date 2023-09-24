@@ -76,22 +76,23 @@ public class MateriaTest {
     @Test
 	public void queSePuedaAgregarMateriasCorrelativas() {
 		
-		//Las materias se consideraran correlativas si comparten el valor identificador de la materia a la que son correlativas, en caso de no tener, el valor sera nulo.
+		//Las materias se consideraran correlativas si comparten el valor identificador de correlatividad, en caso de no tener, el valor sera nulo.
 		
 		  Universidad administrador = new Universidad();
 		 
 		  Materia materiaUno = new Materia(1,"Programacion Basica I", null);
 		  Materia materiaDos = new Materia(2,"Programacion Basica II", null);
-		
+		Integer codigoCorrelatividad = 1;
 		  administrador.agregarMateria(materiaUno);
 		  administrador.agregarMateria(materiaDos);
 		  
 		  //Materia uno pasa a tener como valor correlativo a materia dos
 		  
-		  Boolean resultado = administrador.agregarCorrelatividad(materiaUno.getId(), materiaDos.getId());
+		  Boolean resultado = administrador.agregarCorrelatividad(materiaUno.getId(), codigoCorrelatividad);
+		  Boolean resultado2 = administrador.agregarCorrelatividad(materiaDos.getId(), codigoCorrelatividad);
 		  
 		  assertTrue(resultado);
-		  
+		  assertTrue(resultado2);
 	}
 	
 	@Test
