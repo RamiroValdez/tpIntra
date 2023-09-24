@@ -232,7 +232,7 @@ public class Universidad {
     	    List<String> materiasAprobadas = alumno.getMateriasAprobadas();
 
     	    // Supongamos que también tienes la materia de la comisión
-    	    String materiaComision = comision.getMateria();
+    	    Materia materiaComision = comision.getMateria();
 
     	    // Verificar si el alumno ya aprobó la materia de la comisión
     	    boolean yaAprobo = materiasAprobadas.contains(materiaComision);
@@ -314,5 +314,24 @@ public class Universidad {
         return listaMaterias.contains(materia);
 
     }
+	
+	public Nota obtenerNota(Alumno alumno, Materia materia) {
+	    for (Comision comision : listaComisiones) {
+	        if (comision.getAlumnos().contains(alumno) && comision.getMateria().equals(materia)) {
+	            for (RegistroNotas registro : comision.getRegistrosNotas()) {
+	                if (registro.getAlumno().equals(alumno) && registro.getNota() != null) {
+	                    return registro.getNota();
+	                }
+	            } 
+	        }
+	    }
+		return null;
+	}
+	
+	public void setListaComisiones(List<Comision> listaComisiones) {
+	    this.listaComisiones = listaComisiones;
+	}
+
+
 
 }

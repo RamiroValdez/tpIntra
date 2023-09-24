@@ -13,7 +13,7 @@ public class RegistroNotas {
     public Alumno getAlumno() {
         return alumno;
     }
-    public Nota getNota() {
+    public Nota getNota() {  
         return nota;
     }
     public void setAlumno(Alumno alumno) {

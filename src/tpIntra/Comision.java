@@ -10,12 +10,14 @@ public class Comision {
     private CicloLectivo cicloActual;
     private List <Aula> aula;
 	private Materia materia;
-	private List<RegistroNotas> registroDeNotas;
+	private List<RegistroNotas> registrosNotas = new ArrayList<>();
+
     
 	public Comision(String codigo) {
         this.codigo = codigo;
         this.profesores = new ArrayList<>();
-        this.alumnos = new ArrayList<>(); 
+        this.alumnos = new ArrayList<>();
+        this.registrosNotas = new ArrayList<>();
     }
 	
 	@Override
@@ -35,7 +37,7 @@ public class Comision {
 	}
 
 	public void setCicloActual(CicloLectivo cicloActual) {
-		this.cicloActual = cicloActual;
+		this.cicloActual = cicloActual; 
 	}
 	
     // Métodos para agregar profesores, alumnos y registros de exámenes
@@ -81,10 +83,7 @@ public class Comision {
         return turno;
     }
 
-    public String getMateria() {
-        // Supongamos que el nombre de la materia es "Materia1" en este ejemplo
-        String materia = "Materia1"; // Puedes ajustar esto según el nombre real de la materia
-
+    public Materia getMateria() {      
         return materia;
     }
 
@@ -101,35 +100,38 @@ public class Comision {
     
     public Boolean registrarNota(RegistroNotas nuevaNota) {
 
-        if(registroDeNotas.size()==0) {
-            return registroDeNotas.add(nuevaNota);
+        if(registrosNotas.size()==0) {
+            return registrosNotas.add(nuevaNota);
         }else {
 
             if(!validarQueLaNotaNoExista(nuevaNota)) {
                 return false;
             }
 
-            return registroDeNotas.add(nuevaNota);
+            return registrosNotas.add(nuevaNota);
 
-        }
+        } 
 
     }
     
     public Boolean validarQueLaNotaNoExista(RegistroNotas notaEvaluada) {
-        Boolean val = false;
-        for(RegistroNotas rn : registroDeNotas) {
-            if(rn.getAlumno().getDni().equals(notaEvaluada.getAlumno().getDni())) {
-
-                if(rn.getNota().getTipoDeExamen() == notaEvaluada.getNota().getTipoDeExamen()) {
-                    val = false;
-                }else {
-                    val = true;
-                }
+        for (RegistroNotas rn : registrosNotas) {
+            if (rn.getAlumno().getDni().equals(notaEvaluada.getAlumno().getDni()) &&
+                rn.getNota().getTipoDeExamen() == notaEvaluada.getNota().getTipoDeExamen()) {
+                return false; // Si se encuentra una coincidencia, retorna false
             }
         }
+        return true; // Si no se encontraron coincidencias, retorna true (puede agregar la nota)
+    }
 
-        return val;
 
+    public List<RegistroNotas> getRegistrosNotas() {
+        return registrosNotas;
+    }
+
+    public void agregarRegistroNotas(RegistroNotas registro) {
+        // Agregar el registro de notas a la lista
+        registrosNotas.add(registro);
     }
 
 }

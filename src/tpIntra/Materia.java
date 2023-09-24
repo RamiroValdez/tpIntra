@@ -63,7 +63,7 @@ public class Materia {
                 return true;
             }
         }
-        return false;
+        return false;  
     }
 
     // Método para limpiar la lista de materias (para uso en pruebas)

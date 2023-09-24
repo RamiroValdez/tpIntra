@@ -8,6 +8,7 @@ import tpIntra.Comision;
 import tpIntra.Materia;
 import tpIntra.Nota;
 import tpIntra.Profesor;
+import tpIntra.RegistroNotas;
 import tpIntra.TipoExamen;
 import tpIntra.Universidad;
 
@@ -17,12 +18,13 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import static org.junit.Assert.assertTrue;
 
 public class UniversidadTest {
 
-    private Alumno alumno;
+    private Alumno alumno;	
     private Comision comision;
     private Universidad universidad;
  
@@ -31,6 +33,17 @@ public class UniversidadTest {
     	universidad = new Universidad();
         alumno = new Alumno("123456789", "Juan", "Perez", "01/01/1990", "01/09/2023");
         comision = new Comision("COM-001");
+        
+     // Crear instancias de Comision y agregarlas a una lista de comisiones de prueba
+        List<Comision> listaComisiones = new ArrayList<>();
+        Comision comision1 = new Comision("COM-002");
+        Comision comision2 = new Comision("COM-003");
+        // Agregar las comisiones a la lista
+        listaComisiones.add(comision1);
+        listaComisiones.add(comision2);
+
+        // Configurar la listaComisiones en el objeto universidad
+        universidad.setListaComisiones(listaComisiones);
     }
    
     @Before
@@ -131,7 +144,7 @@ public class UniversidadTest {
            universidad.asignarCicloAComision(comision, nuevoCiclo);
            universidad.agregarCorrelatividad(materiaUno.getId(), materiaDos.getId());
            universidad.asignarMateriaAComision(materiaUno, comision);
-
+ 
            //Vamos a crear la clase Nota y la claseRegistroNotas en Comision
 
            Nota primerNota = new Nota(TipoExamen.PRIMER_PARCIAL, 7);
@@ -139,5 +152,33 @@ public class UniversidadTest {
            assertTrue(universidad.registrarNota(comision,alumno,primerNota));
 
     }
+    
+    @Test
+    public void testObtenerNota() {
+        Alumno alumno = new Alumno("12345678", "Juan", "Perez", "01/01/1990", "01/01/2023");
+        Materia materia = new Materia(1, "Programacion Basica I", null);
+        Universidad universidad = new Universidad();
+
+        Comision comision = new Comision("COM-115");
+
+        comision.agregarAlumno(alumno);
+        comision.setMateria(materia);
+        
+        universidad.agregarAlumno(alumno);
+        universidad.agregarMateria(materia);
+
+        RegistroNotas registro = new RegistroNotas(alumno, new Nota(TipoExamen.PRIMER_PARCIAL, 7));
+        comision.agregarRegistroNotas(registro);
+        
+        universidad.agregarComision(comision);
+
+        Nota notaObtenida = universidad.obtenerNota(alumno, materia);
+
+        assertNotNull("La nota obtenida es nula", notaObtenida);
+        assertEquals("El tipo de examen no coincide", TipoExamen.PRIMER_PARCIAL, notaObtenida.getTipoDeExamen());
+        assertEquals("El valor de la nota no coincide", Integer.valueOf(7), notaObtenida.getValorNota()); 
+    }
+
+
     
 }

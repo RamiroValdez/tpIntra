@@ -117,6 +117,6 @@ public class Alumno {
 
         // Agregar la nueva correlativa aprobada a la lista
         correlativasAprobadas.add(nuevaCorrelativa);
-    }
+    }  
 }
 

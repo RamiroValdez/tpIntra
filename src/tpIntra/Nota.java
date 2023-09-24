@@ -13,7 +13,7 @@ public class Nota {
         return tipoDeExamen;
     }
 
-    public Integer getValorNota() {
+    public Integer getValorNota() {  
         return valorNota;
     }
 }
