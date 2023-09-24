@@ -9,7 +9,7 @@ import tpIntra.Universidad;
 public class MateriaTest {
 
     @Before
-    public void limpiarListaMaterias() {
+    public void limpiarListaMaterias() { 
         // Antes de cada prueba, limpiamos la lista de materias para comenzar desde cero
         Materia.limpiarListaMaterias();
     }
