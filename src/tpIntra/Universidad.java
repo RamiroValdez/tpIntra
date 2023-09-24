@@ -385,8 +385,28 @@ public class Universidad {
 		}
 		
 		return validacion;
-		
-		
+	
 	}
+	
+	public List<Materia> obtenerMateriasQueLeFaltanCursarAUnAlumno(Alumno alumno){
+		Alumno alumnoAVerificar = null;
+		if(esAlumnoAlta(alumno)) {
+			for (Alumno a : listaAlumnos) {
+				if(a.getDni().equals(alumno.getDni())) {
+					alumnoAVerificar = a;
+				}
+			}
+		}
+		List<Materia> materiasQueLeFaltanCursar=new ArrayList<>();
+		
+		for (Materia materia : listaMaterias) {
+			if(!alumnoAVerificar.getMateriasAprobadas().contains(materia)) {
+				materiasQueLeFaltanCursar.add(materia);
+			}
+		}
+		
+		return materiasQueLeFaltanCursar;
+	}
+	
 
 }
