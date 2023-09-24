@@ -16,6 +16,7 @@ public class Comision {
         this.codigo = codigo;
         this.profesores = new ArrayList<>();
         this.alumnos = new ArrayList<>(); 
+        this.registroDeNotas = new ArrayList<>();
     }
 	
 	@Override
@@ -81,9 +82,9 @@ public class Comision {
         return turno;
     }
 
-    public String getMateria() {
+    public Materia getMateria() {
         // Supongamos que el nombre de la materia es "Materia1" en este ejemplo
-        String materia = "Materia1"; // Puedes ajustar esto según el nombre real de la materia
+    // Puedes ajustar esto según el nombre real de la materia
 
         return materia;
     }
