@@ -345,7 +345,6 @@ public class Universidad {
 
     }
 	
-<<<<<<< HEAD
 	public Nota obtenerNota(Alumno alumno, Materia materia) {
 	    for (Comision comision : listaComisiones) {
 	        if (comision.getAlumnos().contains(alumno) && comision.getMateria().equals(materia)) {
@@ -363,8 +362,6 @@ public class Universidad {
 	    this.listaComisiones = listaComisiones;
 	}
 
-
-=======
 	public Boolean saberSiTieneLasCorrelativasAprobadas(Alumno alumno, Integer valorCorrelatividad) {
 		
 		Boolean validacion = true;
@@ -391,6 +388,5 @@ public class Universidad {
 		
 		
 	}
->>>>>>> ramaNotas
 
 }
