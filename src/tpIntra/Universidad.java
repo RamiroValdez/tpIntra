@@ -140,7 +140,7 @@ public class Universidad {
       public boolean inscribirAlumnoAComision(Alumno alumno, Comision comision) {
           
       	// Verificar que el alumno y la comisión estén dados de alta
-          if (!esAlumnoAlta(null, alumno) || !esComisionAlta(null,comision)) {
+          if (!esAlumnoAlta(alumno) || !esComisionAlta(comision)) {
               return false;
           }
 
@@ -180,12 +180,12 @@ public class Universidad {
     	    return tieneAprobadas;
     	}
 
-      private boolean esAlumnoAlta(Universidad universidad, Alumno alumno) {
+      private boolean esAlumnoAlta(Alumno alumno) {
     	    boolean esAlta = listaAlumnos.contains(alumno);
     	    return esAlta;
     	}
 
-    	private boolean esComisionAlta(Universidad universidad, Comision comision) {
+    	private boolean esComisionAlta(Comision comision) {
     	    boolean esAlta = listaComisiones.contains(comision);
     	    return esAlta;
     	}
@@ -266,10 +266,10 @@ public class Universidad {
 	
 	public boolean registrarNota(Comision comision, Alumno alumno, Nota nota) {
 
-        if(!esComisionAlta(null, comision)) {
+        if(!esComisionAlta(comision)) {
         return false;
         }
-        if(!esAlumnoAlta(null, alumno)) {
+        if(!esAlumnoAlta(alumno)) {
             return false;
         }
 
