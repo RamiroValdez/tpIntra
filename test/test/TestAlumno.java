@@ -82,10 +82,10 @@ public class TestAlumno {
 
         // Agregar la comisión a la lista de comisiones disponibles
         universidad.agregarComision(comision);
-
+        universidad.agregarAlumno(alumno);
         // Simular que el alumno tiene al menos 4 correlativas aprobadas
         for (int i = 1; i <= 4; i++) {
-            Materia correlativaAprobada = new Materia(i, "Materia" + i, i+1);
+            Materia correlativaAprobada = new Materia(i, "Materia" + i, i);
             alumno.agregarCorrelativaAprobada(correlativaAprobada);
         }
 
