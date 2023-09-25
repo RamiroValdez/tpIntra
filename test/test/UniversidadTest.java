@@ -100,6 +100,7 @@ public class UniversidadTest {
     
     @Test
     public void testAsignarAulaAComision() {
+    	
         Universidad universidad = new Universidad();
         
         Aula aula = new Aula("Aula-001", 30);
@@ -138,11 +139,17 @@ public class UniversidadTest {
            Materia materiaUno = new Materia(1,"Programacion Basica I", null);
          Materia materiaDos = new Materia(2,"Programacion Basica II", null);
           universidad.agregarMateria(materiaUno);
+          
+      
+  			
+  			
           universidad.agregarMateria(materiaDos);
            //Ahora vamos a conectar los datos
 
+          
+          
            universidad.asignarCicloAComision(comision, nuevoCiclo);
-           universidad.agregarCorrelatividad(materiaUno.getId(), materiaDos.getId());
+           universidad.agregarCorrelatividad(materiaUno.getId(), 1);
            universidad.asignarMateriaAComision(materiaUno, comision);
  
            //Vamos a crear la clase Nota y la claseRegistroNotas en Comision
@@ -152,6 +159,110 @@ public class UniversidadTest {
            assertTrue(universidad.registrarNota(comision,alumno,primerNota));
 
     }
+    
+    @Test
+    public void testQueNoPuedaRendirUnParcialSiYaRindioConAnterioridad() {
+    	
+    	 Comision comision = new Comision("COM-001");
+         universidad.agregarComision(comision);
+         CicloLectivo nuevoCiclo = new CicloLectivo(LocalDate.of(2023,2,12), LocalDate.of(2023, 5, 28), LocalDate.of(2023, 1, 7), LocalDate.of(2023, 1, 15), 1);
+         universidad.agregarCicloLectivo(nuevoCiclo);
+           Alumno alumno = new Alumno("12345678", "Juan", "Perez", "01/01/1990", "01/01/2023");
+           universidad.agregarAlumno(alumno);
+           Materia materiaUno = new Materia(1,"Programacion Basica I", null);
+         Materia materiaDos = new Materia(2,"Programacion Basica II", null);
+          universidad.agregarMateria(materiaUno);
+          universidad.agregarMateria(materiaDos);
+          Nota primerParcial = new Nota(TipoExamen.PRIMER_PARCIAL,4);
+          Nota segundoParcial = new Nota(TipoExamen.SEGUNDO_PARCIAL,10);
+          Nota recuPrimerParcial = new Nota(TipoExamen.RECUPERATORIO_P_PARCIAL,7);
+           //Ahora vamos a conectar los datos
+
+           universidad.asignarCicloAComision(comision, nuevoCiclo);
+           universidad.agregarCorrelatividad(materiaUno.getId(), 1);
+           universidad.agregarCorrelatividad(materiaDos.getId(), 1);
+           universidad.asignarMateriaAComision(materiaUno, comision);
+           universidad.inscribirAlumnoAComision(alumno, comision);
+           universidad.registrarNota(comision, alumno, primerParcial);
+           universidad.registrarNota(comision, alumno, segundoParcial);
+           universidad.registrarNota(comision, alumno, recuPrimerParcial);
+           
+           // Creamos un cuarto parcial, correspondiente al parcial numero 2, el cual sera erroneo
+           Nota parcialErroneo = new Nota(TipoExamen.RECUPERATORIO_S_PARCIAL,7);
+           
+           assertFalse(universidad.registrarNota(comision, alumno, parcialErroneo));
+
+    	
+    }
+    
+    @Test
+    public void testQueNoPuedaAgregarUnaNotaMayorA10oMenorA1() {
+    	
+    	 Comision comision = new Comision("COM-001");
+         universidad.agregarComision(comision);
+         CicloLectivo nuevoCiclo = new CicloLectivo(LocalDate.of(2023,2,12), LocalDate.of(2023, 5, 28), LocalDate.of(2023, 1, 7), LocalDate.of(2023, 1, 15), 1);
+         universidad.agregarCicloLectivo(nuevoCiclo);
+           Alumno alumno = new Alumno("12345678", "Juan", "Perez", "01/01/1990", "01/01/2023");
+           universidad.agregarAlumno(alumno);
+           Materia materiaUno = new Materia(1,"Programacion Basica I", null);
+         Materia materiaDos = new Materia(2,"Programacion Basica II", null);
+          universidad.agregarMateria(materiaUno);
+          universidad.agregarMateria(materiaDos);
+          Nota primerParcial = new Nota(TipoExamen.PRIMER_PARCIAL,-1);
+          Nota segundoParcial = new Nota(TipoExamen.SEGUNDO_PARCIAL,11);
+
+           //Ahora vamos a conectar los datos
+
+           universidad.asignarCicloAComision(comision, nuevoCiclo);
+           universidad.agregarCorrelatividad(materiaUno.getId(), 1);
+           universidad.agregarCorrelatividad(materiaDos.getId(), 1);
+           universidad.asignarMateriaAComision(materiaUno, comision);
+           universidad.inscribirAlumnoAComision(alumno, comision);
+          
+           
+           //Trataremos de registrar notas fuera del rango posible
+           
+           assertFalse(universidad.registrarNota(comision, alumno, primerParcial));
+           assertFalse(universidad.registrarNota(comision, alumno, segundoParcial));
+ 
+    	
+    }
+    
+    @Test
+    public void testQueNoPuedaAgregarUnaNotaMayorA7SiNoTieneCorrelativaAprobada() {
+    	
+    	 Comision comision = new Comision("COM-001");
+         universidad.agregarComision(comision);
+         CicloLectivo nuevoCiclo = new CicloLectivo(LocalDate.of(2023,2,12), LocalDate.of(2023, 5, 28), LocalDate.of(2023, 1, 7), LocalDate.of(2023, 1, 15), 1);
+         universidad.agregarCicloLectivo(nuevoCiclo);
+           Alumno alumno = new Alumno("12345678", "Juan", "Perez", "01/01/1990", "01/01/2023");
+           universidad.agregarAlumno(alumno);
+           Materia materiaUno = new Materia(1,"Programacion Basica I", null);
+         Materia materiaDos = new Materia(2,"Programacion Basica II", null);
+          universidad.agregarMateria(materiaUno);
+          universidad.agregarMateria(materiaDos);
+          Nota primerParcial = new Nota(TipoExamen.PRIMER_PARCIAL,10);
+          Nota segundoParcial = new Nota(TipoExamen.SEGUNDO_PARCIAL,10);
+          Nota finals = new Nota(TipoExamen.FINAL,10);
+
+           //Ahora vamos a conectar los datos
+
+           universidad.asignarCicloAComision(comision, nuevoCiclo);
+           universidad.agregarCorrelatividad(materiaUno.getId(), 1);
+           universidad.agregarCorrelatividad(materiaDos.getId(), 1);
+           universidad.asignarMateriaAComision(materiaDos, comision);
+           universidad.inscribirAlumnoAComision(alumno, comision);
+           universidad.registrarNota(comision, alumno, primerParcial);
+           universidad.registrarNota(comision, alumno, segundoParcial);
+           
+           
+           //Trataremos de registrar notas fuera del rango posible
+           
+           assertFalse(universidad.registrarNota(comision, alumno, finals));
+ 
+    	
+    }
+    
     
     @Test
     public void testObtenerNota() {

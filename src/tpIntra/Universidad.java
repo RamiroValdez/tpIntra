@@ -285,22 +285,72 @@ public class Universidad {
 	
 	public boolean registrarNota(Comision comision, Alumno alumno, Nota nota) {
 
-				
+		Integer valTipoNota = 0;
+		Boolean validacionNotasMayoresA7 = false;
         if(!esComisionAlta(comision)) {
         return false;
         }
         if(!esAlumnoAlta(alumno)) {
             return false;
         }
-        if(nota.getValorNota()>= 7) {
+        if(nota.getValorNota()>10||nota.getValorNota()<1) {
+        	return false;
+        }
+        if(nota.getValorNota()>= 7 && nota.getTipoDeExamen()==TipoExamen.FINAL) {
         	if(saberSiTieneLasCorrelativasAprobadas(alumno, comision.getMateria().getIdCorrelativa())==false) {
         		return false;
         	}
         }
-        if(buscarCorrelativa(comision.getMateria())!=null){
-        	if(yaAproboMateria(alumno, comision)) {
-        		
+        
+        if(nota.getTipoDeExamen()==TipoExamen.RECUPERATORIO_S_PARCIAL) {
+        	for (RegistroNotas rn : comision.getRegistrosNotas()) {
+				if(rn.getAlumno()==alumno) {
+					if(rn.getNota().getTipoDeExamen()==TipoExamen.RECUPERATORIO_P_PARCIAL) {
+						return false;
+					}
+				}
+			}
+        }
+        
+        if(nota.getTipoDeExamen()==TipoExamen.FINAL) {
+        	for (RegistroNotas rn : comision.getRegistrosNotas()) {
+				
+        		if(rn.getAlumno()==alumno) {
+					if(rn.getNota().getTipoDeExamen()==TipoExamen.PRIMER_PARCIAL) {
+						valTipoNota = 1;
+						if(rn.getNota().getValorNota()>7) {
+							validacionNotasMayoresA7 = true;
+						}else {
+							validacionNotasMayoresA7 = false;
+						}
+					}
+					if(rn.getNota().getTipoDeExamen()==TipoExamen.SEGUNDO_PARCIAL) {
+						valTipoNota = 2;
+						if(rn.getNota().getValorNota()>7) {
+							validacionNotasMayoresA7 = true;
+						}else {
+							validacionNotasMayoresA7 = false;
+						}
+					}
+					if(validacionNotasMayoresA7==false) {
+						if(rn.getNota().getTipoDeExamen()==TipoExamen.RECUPERATORIO_P_PARCIAL||rn.getNota().getTipoDeExamen()==TipoExamen.RECUPERATORIO_S_PARCIAL) {
+							valTipoNota = 3;
+						}
+					}
+					
+				}
+		}
+        	if(validacionNotasMayoresA7==true) {
+        		if(valTipoNota!=2) {
+        			return false;
+        		}
+        	}else {
+        		if(valTipoNota!=3) {
+        			return false;
+        		}
         	}
+        	
+        	
         }
 
         Boolean val = false;
@@ -364,7 +414,7 @@ public class Universidad {
 
 	public Boolean saberSiTieneLasCorrelativasAprobadas(Alumno alumno, Integer valorCorrelatividad) {
 		
-		Boolean validacion = true;
+		Boolean validacion = false;
 		
 		if(!esAlumnoAlta(alumno)) {
 			return false;
@@ -389,9 +439,9 @@ public class Universidad {
 	}
 	
 	public double calcularPromedio(String idAlumno) {
-		for(Comision comision : listaComisiones){ }
-		Double totalNota = 0.0;
-		        Integer cantidadNotas = 0;
+
+			Double totalNota = 0.0;
+		    Integer cantidadNotas = 0;
 
 		        for (Comision comision : listaComisiones) {
 		            for(RegistroNotas registro : comision.getRegistrosNotas()) {
