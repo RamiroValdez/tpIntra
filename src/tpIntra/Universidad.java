@@ -35,7 +35,7 @@ public class Universidad {
 
         // Si el código no existe en la lista, agregar la comisión
         listaComisiones.add(comision);
-        System.out.println("Comisión con código " + comision.getCodigo() + " agregada correctamente.");
+
         return true;
     }
 
