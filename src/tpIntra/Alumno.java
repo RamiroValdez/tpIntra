@@ -91,9 +91,9 @@ public class Alumno {
         this.materiasAprobadas = materiasAprobadas;
     }
 
-    public void agregarCorrelativaAprobada(Materia correlativa) {
+    public void agregarCorrelativaAprobada(Materia correlativaAprobada) {
         // Agregar una correlativa aprobada a la lista
-        correlativasAprobadas.add(correlativa);
+        correlativasAprobadas.add(correlativaAprobada);
     }
 
     public void quitarCorrelativaAprobada(Materia correlativa) {

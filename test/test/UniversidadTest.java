@@ -20,8 +20,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import static org.junit.Assert.assertTrue;
-
 public class UniversidadTest {
 
     private Alumno alumno;	
@@ -367,4 +365,177 @@ public class UniversidadTest {
     	
     	
     }
+    
+    @Test
+    public void testAgregarConsultarCorrelativasAprobadas() {
+        Alumno alumno = new Alumno("123456789", "Juan", "Perez", "01/01/1990", "01/09/2023");
+
+        // Agregar correlativas aprobadas
+        Materia correlativa1 = new Materia(1, "Correlativa1",2);
+        Materia correlativa2 = new Materia(2, "Correlativa2",3);
+        Materia correlativa3 = new Materia(3, "Correlativa2",null);
+        
+        alumno.agregarCorrelativaAprobada(correlativa1);
+        alumno.agregarCorrelativaAprobada(correlativa2);
+
+        // Consultar correlativas aprobadas
+        assertEquals(2, alumno.getCorrelativasAprobadas().size());
+        assertTrue(alumno.getCorrelativasAprobadas().contains(correlativa1));
+        assertTrue(alumno.getCorrelativasAprobadas().contains(correlativa2));
+    }
+
+    @Test
+    public void testInscripcionSinCorrelativasAprobadas() {
+    	
+        Alumno alumno = new Alumno("123456789", "Juan", "Perez", "01/01/1990", "01/09/2023");
+
+        // Crear una instancia de la comisión a la que se intentará inscribir al alumno
+        Comision comision = new Comision("COM-001");
+
+        // Intentar inscribir al alumno en una comisión sin tener al menos 4 correlativas aprobadas (debería fallar)
+        assertFalse(universidad.inscribirAlumnoAComision(alumno, comision));
+    }
+
+    @Test
+    public void testInscripcionConCorrelativasAprobadas() {
+        Alumno alumno = new Alumno("123456789", "Juan", "Perez", "01/01/1990", "01/09/2023");
+        
+        // Crear una instancia de la comisión a la que se intentará inscribir al alumno
+        Comision comision = new Comision("COM-001");
+
+        // Agregar la comisión a la lista de comisiones disponibles
+        universidad.agregarComision(comision);
+        universidad.agregarAlumno(alumno);
+        // Simular que el alumno tiene al menos 4 correlativas aprobadas
+        for (int i = 1; i <= 4; i++) {
+            Materia correlativaAprobada = new Materia(i, "Materia" + i, i);
+            alumno.agregarCorrelativaAprobada(correlativaAprobada);
+        }
+
+        // Intentar inscribir al alumno en una comisión con al menos 4 correlativas aprobadas (debería ser exitoso)
+        assertTrue(universidad.inscribirAlumnoAComision(alumno, comision));
+    }
+    
+    @Test
+    public void testCrearVariasMaterias() {
+        // Crear varias materias
+        Materia materia1 = new Materia(1, "Matemáticas", null);
+        Materia materia2 = new Materia(2, "Historia", null);
+        Materia materia3 = new Materia(3, "Ciencias", null);
+
+        // Verificar los atributos de las materias
+        assertEquals(Integer.valueOf(1), materia1.getId());
+        assertEquals("Matemáticas", materia1.getNombre());
+
+        assertEquals(Integer.valueOf(2), materia2.getId());
+        assertEquals("Historia", materia2.getNombre());
+
+        assertEquals(Integer.valueOf(3), materia3.getId());
+        assertEquals("Ciencias", materia3.getNombre());
+    }
+ 
+    @Test
+    public void testNoAgregarMateriaConMismoID() {
+        // Crear una materia
+        Materia materia1 = new Materia(1, "Matemáticas", null);
+
+        // Intentar crear otra materia con el mismo ID (debería fallar)
+        try {
+            Materia materia2 = new Materia(1, "Historia", null);
+            fail("Debería haber lanzado una excepción IllegalArgumentException");
+        } catch (IllegalArgumentException e) {
+            // Se espera que lance una excepción, por lo que no se hace nada aquí
+        }
+    }
+
+    @Test
+    public void testConsultarTodasLasMaterias() {
+        // Crear varias materias
+        Materia materia1 = new Materia(1, "Matemáticas", null);
+        Materia materia2 = new Materia(2, "Historia", null);
+        Materia materia3 = new Materia(3, "Ciencias", null);
+
+        // Consultar todas las materias existentes
+        assertEquals(3, Materia.obtenerTodasLasMaterias().size());
+    }
+
+    @Test
+    public void testObtenerMateriaPorID() {
+        // Crear varias materias
+        Materia materia1 = new Materia(1, "Matemáticas", null);
+        Materia materia2 = new Materia(2, "Historia", null);
+        Materia materia3 = new Materia(3, "Ciencias", null);
+
+        // Consultar una materia por su ID
+        Materia materiaConsultada = Materia.obtenerMateriaPorID(2);
+
+        // Verificar que la materia consultada sea la correcta
+        assertNotNull(materiaConsultada);
+        assertEquals(Integer.valueOf(2), materiaConsultada.getId());
+        assertEquals("Historia", materiaConsultada.getNombre());
+    }
+    
+    @Test
+	public void queSePuedaAgregarMateriasCorrelativas() {
+		
+		//Las materias se consideraran correlativas si comparten el valor identificador de correlatividad, en caso de no tener, el valor sera nulo.
+		
+		  Universidad administrador = new Universidad();
+		 
+		  Materia materiaUno = new Materia(1,"Programacion Basica I", null);
+		  Materia materiaDos = new Materia(2,"Programacion Basica II", null);
+		Integer codigoCorrelatividad = 1;
+		  administrador.agregarMateria(materiaUno);
+		  administrador.agregarMateria(materiaDos);
+		  
+		  //Materia uno pasa a tener como valor correlativo a materia dos
+		  
+		  Boolean resultado = administrador.agregarCorrelatividad(materiaUno.getId(), codigoCorrelatividad);
+		  Boolean resultado2 = administrador.agregarCorrelatividad(materiaDos.getId(), codigoCorrelatividad);
+		  
+		  assertTrue(resultado);
+		  assertTrue(resultado2);
+	}
+	
+	@Test
+	public void queNoSePuedaAgregarMateriaCorrelativaSiLaMateriaYaTieneUnaCorrelativa() {
+		
+		 Universidad administrador = new Universidad();
+		 
+		  Materia materiaUno = new Materia(1,"Programacion Basica I", 2);
+		  Materia materiaDos = new Materia(2,"Programacion Basica II", 3);
+		  Materia materiaTres = new Materia(3,"Programacion Web", 2);
+		  
+		  administrador.agregarMateria(materiaUno);
+		  administrador.agregarMateria(materiaDos);
+		  administrador.agregarMateria(materiaTres);
+		  
+		  administrador.agregarCorrelatividad(materiaUno.getId(), materiaDos.getId());
+		  Boolean resultado = administrador.agregarCorrelatividad(materiaUno.getId(), materiaTres.getId());
+		  
+		  assertFalse(resultado);
+		  
+	}
+	
+	@Test
+	public void queSePuedaEliminarUnaCorrelatividad() {
+		
+		  Universidad administrador = new Universidad();
+		 
+		  Materia materiaUno = new Materia(1,"Programacion Basica I", 2);
+		  Materia materiaDos = new Materia(2,"Programacion Basica II", null);
+		  
+		  administrador.agregarMateria(materiaUno);
+		  administrador.agregarMateria(materiaDos);
+		  
+		  administrador.agregarCorrelatividad(materiaUno.getId(), materiaDos.getId());
+		  
+		  //El Metodo corrobora que la materia tenga correlativa y luego que sea igual al valor de la correlativa a elminiar
+		  
+		  Boolean resultado = administrador.eliminarCorrelatividad(materiaUno.getId(), materiaDos.getId());
+		  
+		  assertTrue(resultado);
+		
+	}
+    
 }
