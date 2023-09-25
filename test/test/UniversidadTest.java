@@ -25,7 +25,7 @@ public class UniversidadTest {
     private Alumno alumno;	
     private Comision comision;
     private Universidad universidad;
- 
+  
     @Before
     public void setUp() {
     	universidad = new Universidad();
@@ -49,7 +49,36 @@ public class UniversidadTest {
         // Antes de cada prueba, limpiamos la lista de materias para comenzar desde cero
         Materia.limpiarListaMaterias();
     }
-
+    
+    @Test
+    public void testAgregarMateria() {
+    	
+    	universidad = new Universidad();
+        Materia materiaUno = new Materia(1,"Programacion Basica I", null);
+        
+        assertTrue(universidad.agregarMateria(materiaUno));
+    }
+    
+    @Test
+    public void testQueNoSePuedaAgregarMAteriasConMismoID() {
+    	
+    	universidad = new Universidad();
+    	
+        Materia materiaUno = new Materia(1,"Programacion Basica I", null);
+        Materia materiaDos = new Materia(1,"Programacion Basica II", null);
+        
+        universidad.agregarMateria(materiaUno);
+        assertFalse(universidad.agregarMateria(materiaDos));
+    }
+    
+    @Test
+    public void testAgregarAlumno() {
+    	
+    	universidad = new Universidad();
+        alumno = new Alumno("123456789", "Juan", "Perez", "01/01/1990", "01/09/2023");
+        
+        assertTrue(universidad.agregarAlumno(alumno));
+    }
 
     @Test
     public void testInscribirAlumnoAComisionExitoso() {

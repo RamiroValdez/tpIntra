@@ -68,10 +68,11 @@ public class Universidad {
     	
     	if(listaMaterias == null) {
     		return listaMaterias.add(materiaAgregada);
-    	}else {    	
+    	}else {    
+    		
     		for (Materia materia : listaMaterias) {
     			
-    			if(materia.equals(materiaAgregada)) {
+    			if(materia.getId()==materiaAgregada.getId()) {
 					return false;
 				}
 			}
