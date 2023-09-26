@@ -43,7 +43,6 @@ public class CicloLectivo {
 		this.fechaFin = fechaFin;
 	}
 
-	
 	public Integer getIdCicloLectivo() {
 		return idCicloLectivo;
 	}
@@ -63,7 +62,4 @@ public class CicloLectivo {
 		CicloLectivo other = (CicloLectivo) obj;
 		return Objects.equals(idCicloLectivo, other.idCicloLectivo);
 	}
-
-  
-
 }

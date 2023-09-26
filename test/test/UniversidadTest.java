@@ -31,140 +31,132 @@ public class UniversidadTest {
     	universidad = new Universidad();
         alumno = new Alumno("123456789", "Juan", "Perez", "01/01/1990", "01/09/2023");
         comision = new Comision("COM-001");
-        
     }
     
     @Test
-    public void testAgregarMateria() {
-    	
+    public void testAgregarMateria() {	
     	universidad = new Universidad();
-        Materia materiaUno = new Materia(1,"Programacion Basica I", null);
-        
+        Materia materiaUno = new Materia(1,"Programacion Basica I", null);      
         assertTrue(universidad.agregarMateria(materiaUno));
     }
     
     @Test
-    public void testQueNoSePuedaAgregarMAteriasConMismoID() {
-    	
-    	universidad = new Universidad();
-    	
-        Materia materiaUno = new Materia(1,"Programacion Basica I", null);
-        Materia materiaDos = new Materia(1,"Programacion Basica II", null);
+    public void testQueNoSePuedaAgregarMAteriasConMismoID() {  	
+    	universidad = new Universidad();   	
+
+    	Materia materiaUno = new Materia(1,"Programacion Basica I", null);
+        Materia materiaDos = new Materia(1,"Programacion Basica II", null);     
         
         universidad.agregarMateria(materiaUno);
+        
         assertFalse(universidad.agregarMateria(materiaDos));
     }
     
     @Test
     public void testAgregarAlumno() {
-    	
     	universidad = new Universidad();
-        alumno = new Alumno("123456789", "Juan", "Perez", "01/01/1990", "01/09/2023");
-        
+        alumno = new Alumno("123456789", "Juan", "Perez", "01/01/1990", "01/09/2023");      
+       
         assertTrue(universidad.agregarAlumno(alumno));
     }
     
     @Test
     public void testQueNoSePuedaAgregarAlumnoSiRepiteDNI() {
-    	
     	universidad = new Universidad();
         alumno = new Alumno("123456789", "Juan", "Perez", "01/01/1990", "01/09/2023");
-        alumno = new Alumno("123456789", "Jose", "Perez", "02/01/1990", "02/09/2023");
+        alumno = new Alumno("123456789", "Jose", "Perez", "02/01/1990", "02/09/2023");     
         
         assertTrue(universidad.agregarAlumno(alumno));
     }
     
     @Test
     public void testAgregarCicloLectivo() {
-    	
     	universidad = new Universidad();
-    	CicloLectivo nuevoCiclo = new CicloLectivo(LocalDate.of(2023, 4, 12),LocalDate.of(2023, 8, 12),LocalDate.of(2023, 2, 9),LocalDate.of(2023, 2, 15),1);
     	
-    	assertTrue(universidad.agregarCicloLectivo(nuevoCiclo));
+    	CicloLectivo nuevoCiclo = new CicloLectivo(LocalDate.of(2023, 4, 12),LocalDate.of(2023, 8, 12),LocalDate.of(2023, 2, 9),LocalDate.of(2023, 2, 15),1);   	
     	
+    	assertTrue(universidad.agregarCicloLectivo(nuevoCiclo)); 	
     }
     
     @Test
-    public void testQueNoSePuedaAgregarCicloLectivoSiTieneMismoID() {
-    	
+    public void testQueNoSePuedaAgregarCicloLectivoSiTieneMismoID() {    	
     	universidad = new Universidad();
+    	
     	CicloLectivo nuevoCiclo = new CicloLectivo(LocalDate.of(2023, 4, 12),LocalDate.of(2023, 8, 12),LocalDate.of(2023, 2, 9),LocalDate.of(2023, 2, 15),1);
     	CicloLectivo segundoCiclo = new CicloLectivo(LocalDate.of(2022, 4, 12),LocalDate.of(2022, 8, 12),LocalDate.of(2022, 2, 9),LocalDate.of(2022, 2, 15),1);
+    	
     	universidad.agregarCicloLectivo(nuevoCiclo);
     	
-    	assertFalse(universidad.agregarCicloLectivo(segundoCiclo));
-    	
+    	assertFalse(universidad.agregarCicloLectivo(segundoCiclo));  	
     }
     
     @Test
-    public void testQueNoSePuedaAgregarCicloLectivoSiSuRangoDeFechaSeSuperpone() {
-    	
+    public void testQueNoSePuedaAgregarCicloLectivoSiSuRangoDeFechaSeSuperpone() {    	
     	universidad = new Universidad();
+    	
     	CicloLectivo nuevoCiclo = new CicloLectivo(LocalDate.of(2023, 4, 12),LocalDate.of(2023, 8, 12),LocalDate.of(2023, 2, 9),LocalDate.of(2023, 2, 15),1);
     	CicloLectivo segundoCiclo = new CicloLectivo(LocalDate.of(2023, 5, 12),LocalDate.of(2023, 7, 12),LocalDate.of(2023, 3, 9),LocalDate.of(2023, 3, 15),2);
+    	
     	universidad.agregarCicloLectivo(nuevoCiclo);
     	
-    	assertFalse(universidad.agregarCicloLectivo(segundoCiclo));
-    	
+    	assertFalse(universidad.agregarCicloLectivo(segundoCiclo)); 	
     }
     
     @Test
-    public void testAgregarDocentes() {
-    	
+    public void testAgregarDocentes() {  	
     	universidad = new Universidad();
+    	
     	Profesor profesor = new Profesor("98765432", "Maria", "Gomez", "15/05/1980", "Progamacion Basica");
     	
-    	assertTrue(universidad.agregarProfesor(profesor));
-    	
+    	assertTrue(universidad.agregarProfesor(profesor));   	
     }
     
     
     @Test
-    public void testQueNoSePuedaAgregarDocentesSiTieneMismoDNI() {
-    	
+    public void testQueNoSePuedaAgregarDocentesSiTieneMismoDNI() {    	
     	universidad = new Universidad();
+    	
     	Profesor profesor = new Profesor("98765432", "Maria", "Gomez", "15/05/1980", "Progamacion Basica");
     	Profesor profesor2 = new Profesor("98765432", "Lisandro", "Benitez", "15/05/1980", "Progamacion Basica II");
     	
     	universidad.agregarProfesor(profesor);
+    	
     	assertFalse(universidad.agregarProfesor(profesor2));
     }
     
     @Test
     public void testAsignarProfesorAComision() {
-    	
     	universidad = new Universidad();
-    	 alumno = new Alumno("123456789", "Jose", "Perez", "02/01/1990", "02/09/2023");
-        Profesor profesor = new Profesor("98765432", "Maria", "Gomez", "15/05/1980", "Materia1");
+    	alumno = new Alumno("123456789", "Jose", "Perez", "02/01/1990", "02/09/2023");
         
+    	Profesor profesor = new Profesor("98765432", "Maria", "Gomez", "15/05/1980", "Materia1");
         Comision comision = new Comision("COM-001");  
         Aula aula = new Aula("Aula-001", 30);
+        
         universidad.agregarAlumno(alumno);
         universidad.inscribirAlumnoAComision(alumno, comision);
         universidad.agregarComision(comision);
         universidad.agregarProfesor(profesor);
         universidad.asignarAulaAComision(comision, aula);
-       
-        
+          
         assertTrue(universidad.asignarProfesorAComision(profesor, comision));
     }
     
     @Test
-    public void testQueNoSePuedaAsignarOtroProfesorAComisionSiTieneMenosDe20Alumnos() {
-    	
+    public void testQueNoSePuedaAsignarOtroProfesorAComisionSiTieneMenosDe20Alumnos() {    	
     	universidad = new Universidad();
-    	 alumno = new Alumno("123456789", "Jose", "Perez", "02/01/1990", "02/09/2023");
-        Profesor profesor = new Profesor("98765432", "Maria", "Gomez", "15/05/1980", "Materia1");
-    	Profesor profesor2 = new Profesor("98765432", "Lisandro", "Benitez", "15/05/1980", "Progamacion Basica II");
-    	
+    	alumno = new Alumno("123456789", "Jose", "Perez", "02/01/1990", "02/09/2023");
+        
+    	Profesor profesor = new Profesor("98765432", "Maria", "Gomez", "15/05/1980", "Materia1");
+    	Profesor profesor2 = new Profesor("98765432", "Lisandro", "Benitez", "15/05/1980", "Progamacion Basica II");    	
         Comision comision = new Comision("COM-001");  
         Aula aula = new Aula("Aula-001", 30);
+        
         universidad.agregarAlumno(alumno);
         universidad.inscribirAlumnoAComision(alumno, comision);
         universidad.agregarComision(comision);
         universidad.agregarProfesor(profesor);
-        universidad.asignarAulaAComision(comision, aula);
-        
+        universidad.asignarAulaAComision(comision, aula);       
         universidad.asignarProfesorAComision(profesor, comision);
         
         assertFalse(universidad.asignarProfesorAComision(profesor2, comision));
@@ -173,33 +165,26 @@ public class UniversidadTest {
    
     
     @Test
-    public void testQueNoSePuedaAsignarProfesorAComisionSiEsteYaEstaRegistradoEnLaMisma() {
-    	
+    public void testQueNoSePuedaAsignarProfesorAComisionSiEsteYaEstaRegistradoEnLaMisma() {    	
     	universidad = new Universidad();
         
-        Profesor profesor = new Profesor("98765432", "Maria", "Gomez", "15/05/1980", "Materia1");
-        
+        Profesor profesor = new Profesor("98765432", "Maria", "Gomez", "15/05/1980", "Materia1");        
         Comision comision = new Comision("COM-001");  
 
         universidad.agregarComision(comision);
-        universidad.agregarProfesor(profesor);
-        
-        
+        universidad.agregarProfesor(profesor);                
         universidad.asignarProfesorAComision(profesor, comision);
         
         assertFalse(universidad.asignarProfesorAComision(profesor, comision));
     }
     
     @Test
-   	public void queSePuedaAgregarMateriasCorrelativas() {
-   		
-   		//Las materias se consideraran correlativas si comparten el valor identificador de correlatividad, en caso de no tener, el valor sera nulo.
-   		
-   		  Universidad administrador = new Universidad();
-   		 
+   	public void queSePuedaAgregarMateriasCorrelativas() {	
+   		  Universidad administrador = new Universidad();   		 
    		  Materia materiaUno = new Materia(1,"Programacion Basica I", null);
    		  Materia materiaDos = new Materia(2,"Programacion Basica II", null);
    		  Integer codigoCorrelatividad = 1;
+   		 
    		  administrador.agregarMateria(materiaUno);
    		  administrador.agregarMateria(materiaDos);
    		  
@@ -214,13 +199,11 @@ public class UniversidadTest {
     
     @Test
     public void testConsultarCorrelativasAprobadas() {
-        Alumno alumno = new Alumno("123456789", "Juan", "Perez", "01/01/1990", "01/09/2023");
-
+    	Alumno alumno = new Alumno("123456789", "Juan", "Perez", "01/01/1990", "01/09/2023");
         // Agregar correlativas aprobadas
         Materia correlativa1 = new Materia(1, "Correlativa1",1);
         Materia correlativa2 = new Materia(2, "Correlativa2",1);
-    
-        
+       
         alumno.agregarCorrelativaAprobada(correlativa1);
         alumno.agregarCorrelativaAprobada(correlativa2);
 
@@ -231,36 +214,28 @@ public class UniversidadTest {
     }
     
 	@Test
-	public void queNoSePuedaAgregarMateriaCorrelativaSiLaMateriaYaTieneUnaCorrelativa() {
-		
-		 Universidad administrador = new Universidad();
-		 
+	public void queNoSePuedaAgregarMateriaCorrelativaSiLaMateriaYaTieneUnaCorrelativa() {		
+		  Universidad administrador = new Universidad();		 
 		  Materia materiaUno = new Materia(1,"Programacion Basica I", null);
 		  Materia materiaDos = new Materia(2,"Programacion Basica II", null);
-
 		  
 		  administrador.agregarMateria(materiaUno);
-		  administrador.agregarMateria(materiaDos);
-		  
+		  administrador.agregarMateria(materiaDos);		  
 		  administrador.agregarCorrelatividad(materiaUno.getId(), 1);
 		  
 		  Boolean resultado = administrador.agregarCorrelatividad(materiaUno.getId(), 1);
 		  
-		  assertFalse(resultado);
-		  
+		  assertFalse(resultado);		  
 	}
     
 	@Test
-	public void queSePuedaEliminarUnaCorrelatividad() {
-		
-		  Universidad administrador = new Universidad();
-		 
+	public void queSePuedaEliminarUnaCorrelatividad() {		
+		  Universidad administrador = new Universidad();		 
 		  Materia materiaUno = new Materia(1,"Programacion Basica I", null);
 		  Materia materiaDos = new Materia(2,"Programacion Basica II", null);
 		  
 		  administrador.agregarMateria(materiaUno);
-		  administrador.agregarMateria(materiaDos);
-		  
+		  administrador.agregarMateria(materiaDos);		  
 		  administrador.agregarCorrelatividad(materiaUno.getId(), 1);
 		  administrador.agregarCorrelatividad(materiaDos.getId(), 1);
 		  
@@ -274,11 +249,8 @@ public class UniversidadTest {
 	}
     
     @Test
-    public void testInscribirAlumnoAComisionExitoso() {
-        // Agregar el alumno a la Universidad (esto debe hacerse antes de la prueba)
+    public void testInscribirAlumnoAComisionExitoso() {   
         universidad.agregarAlumno(alumno);
-
-        // Agregar la comisión a la Universidad (esto debe hacerse antes de la prueba)
         universidad.agregarComision(comision);
         
         alumno.agregarCorrelativaAprobada(1,"Correlativa1");
@@ -286,189 +258,143 @@ public class UniversidadTest {
         alumno.agregarCorrelativaAprobada(3,"Correlativa3");
         alumno.agregarCorrelativaAprobada(4,"Correlativa4");
 
-        // Ejecutar el método que deseas probar
         boolean inscripcionExitosa = universidad.inscribirAlumnoAComision(alumno, comision);
 
-        // Verificar que la inscripción sea exitosa
         assertTrue(inscripcionExitosa);
     }
 
-
     @Test
     public void testInscribirAlumnoAComisionFallido() {
-        // En este caso, no se agrega el alumno ni la comisión a la Universidad,
-        // por lo que la inscripción debe fallar.
-        
-        // Intentar inscribir al alumno en la comisión
         boolean inscripcionExitosa = universidad.inscribirAlumnoAComision(alumno, comision);
-        assertFalse(inscripcionExitosa); // Asegurarse de que la inscripción falle
+        assertFalse(inscripcionExitosa);
     }
     
     @Test
-    public void testAsignarCicloLectivoAComision() {
-    	
-    	Comision nuevaComision = new Comision("01");
-    	
+    public void testAsignarCicloLectivoAComision() {    	
+    	Comision nuevaComision = new Comision("01");    	
     	CicloLectivo nuevoCiclo = new CicloLectivo(LocalDate.of(2023,2,12), LocalDate.of(2023, 5, 28), LocalDate.of(2023, 1, 7), LocalDate.of(2023, 1, 15), 1);
     	
     	universidad.agregarComision(nuevaComision);
     	universidad.agregarCicloLectivo(nuevoCiclo);
     	
-    	assertTrue(universidad.asignarCicloAComision(nuevaComision, nuevoCiclo));
-    	
+    	assertTrue(universidad.asignarCicloAComision(nuevaComision, nuevoCiclo));   	
     }
     
     @Test
-    public void testAsignarAulaAComision() {
-    	
+    public void testAsignarAulaAComision() {    	
         universidad = new Universidad();
         
-        Aula aula = new Aula("Aula-001", 30);
-        
+        Aula aula = new Aula("Aula-001", 30);       
         Comision comision = new Comision("COM-001");  
+
         universidad.agregarComision(comision);
-       assertTrue(universidad.asignarAulaAComision(comision, aula));
-        
-       
+      
+        assertTrue(universidad.asignarAulaAComision(comision, aula));               
     }
     
     
     @Test
     public void registrarNotaDeAlumno() {
+    	Comision comision = new Comision("COM-001");
+        universidad.agregarComision(comision);
+        CicloLectivo nuevoCiclo = new CicloLectivo(LocalDate.of(2023,2,12), LocalDate.of(2023, 5, 28), LocalDate.of(2023, 1, 7), LocalDate.of(2023, 1, 15), 1);
+        universidad.agregarCicloLectivo(nuevoCiclo);
+        Alumno alumno = new Alumno("12345678", "Juan", "Perez", "01/01/1990", "01/01/2023");
+        universidad.agregarAlumno(alumno);
+        Materia materiaUno = new Materia(1,"Programacion Basica I", null);
+        Materia materiaDos = new Materia(2,"Programacion Basica II", null);
+        universidad.agregarMateria(materiaUno);
+        universidad.agregarMateria(materiaDos);
 
-        //Primero vamos a colocar todos los datos necesarios para iniciar con el test
+        universidad.asignarCicloAComision(comision, nuevoCiclo);
+        universidad.agregarCorrelatividad(materiaUno.getId(), 1);
+      	universidad.asignarMateriaAComision(materiaUno, comision);
 
-         Comision comision = new Comision("COM-001");
-         universidad.agregarComision(comision);
-         CicloLectivo nuevoCiclo = new CicloLectivo(LocalDate.of(2023,2,12), LocalDate.of(2023, 5, 28), LocalDate.of(2023, 1, 7), LocalDate.of(2023, 1, 15), 1);
-         universidad.agregarCicloLectivo(nuevoCiclo);
-           Alumno alumno = new Alumno("12345678", "Juan", "Perez", "01/01/1990", "01/01/2023");
-           universidad.agregarAlumno(alumno);
-           Materia materiaUno = new Materia(1,"Programacion Basica I", null);
-         Materia materiaDos = new Materia(2,"Programacion Basica II", null);
-          universidad.agregarMateria(materiaUno);
-          
-      
-  			
-  			
-          universidad.agregarMateria(materiaDos);
-           //Ahora vamos a conectar los datos
+      	Nota primerNota = new Nota(TipoExamen.PRIMER_PARCIAL, 7);
 
-          
-          
-           universidad.asignarCicloAComision(comision, nuevoCiclo);
-           universidad.agregarCorrelatividad(materiaUno.getId(), 1);
-           universidad.asignarMateriaAComision(materiaUno, comision);
- 
-           //Vamos a crear la clase Nota y la claseRegistroNotas en Comision
-
-           Nota primerNota = new Nota(TipoExamen.PRIMER_PARCIAL, 7);
-
-           assertTrue(universidad.registrarNota(comision,alumno,primerNota));
-
+      	assertTrue(universidad.registrarNota(comision,alumno,primerNota));
     }
     
     @Test
-    public void testQueNoPuedaRendirUnParcialSiYaRindioConAnterioridad() {
-    	
+    public void testQueNoPuedaRendirUnParcialSiYaRindioConAnterioridad() {  	
     	 Comision comision = new Comision("COM-001");
          universidad.agregarComision(comision);
          CicloLectivo nuevoCiclo = new CicloLectivo(LocalDate.of(2023,2,12), LocalDate.of(2023, 5, 28), LocalDate.of(2023, 1, 7), LocalDate.of(2023, 1, 15), 1);
          universidad.agregarCicloLectivo(nuevoCiclo);
-           Alumno alumno = new Alumno("12345678", "Juan", "Perez", "01/01/1990", "01/01/2023");
-           universidad.agregarAlumno(alumno);
-           Materia materiaUno = new Materia(1,"Programacion Basica I", null);
+         Alumno alumno = new Alumno("12345678", "Juan", "Perez", "01/01/1990", "01/01/2023");
+         universidad.agregarAlumno(alumno);
+         Materia materiaUno = new Materia(1,"Programacion Basica I", null);
          Materia materiaDos = new Materia(2,"Programacion Basica II", null);
-          universidad.agregarMateria(materiaUno);
-          universidad.agregarMateria(materiaDos);
-          Nota primerParcial = new Nota(TipoExamen.PRIMER_PARCIAL,4);
-          Nota segundoParcial = new Nota(TipoExamen.SEGUNDO_PARCIAL,10);
-          Nota recuPrimerParcial = new Nota(TipoExamen.RECUPERATORIO_P_PARCIAL,7);
-           //Ahora vamos a conectar los datos
+         universidad.agregarMateria(materiaUno);
+         universidad.agregarMateria(materiaDos);
+         Nota primerParcial = new Nota(TipoExamen.PRIMER_PARCIAL,4);
+         Nota segundoParcial = new Nota(TipoExamen.SEGUNDO_PARCIAL,10);
+         Nota recuPrimerParcial = new Nota(TipoExamen.RECUPERATORIO_P_PARCIAL,7);
 
-           universidad.asignarCicloAComision(comision, nuevoCiclo);
-           universidad.agregarCorrelatividad(materiaUno.getId(), 1);
-           universidad.agregarCorrelatividad(materiaDos.getId(), 1);
-           universidad.asignarMateriaAComision(materiaUno, comision);
-           universidad.inscribirAlumnoAComision(alumno, comision);
-           universidad.registrarNota(comision, alumno, primerParcial);
-           universidad.registrarNota(comision, alumno, segundoParcial);
-           universidad.registrarNota(comision, alumno, recuPrimerParcial);
-           
-           // Creamos un cuarto parcial, correspondiente al parcial numero 2, el cual sera erroneo
-           Nota parcialErroneo = new Nota(TipoExamen.RECUPERATORIO_S_PARCIAL,7);
-           
-           assertFalse(universidad.registrarNota(comision, alumno, parcialErroneo));
+         universidad.asignarCicloAComision(comision, nuevoCiclo);
+         universidad.agregarCorrelatividad(materiaUno.getId(), 1);
+         universidad.agregarCorrelatividad(materiaDos.getId(), 1);
+         universidad.asignarMateriaAComision(materiaUno, comision);
+         universidad.inscribirAlumnoAComision(alumno, comision);
+         universidad.registrarNota(comision, alumno, primerParcial);
+         universidad.registrarNota(comision, alumno, segundoParcial);
+         universidad.registrarNota(comision, alumno, recuPrimerParcial);
 
-    	
+         Nota parcialErroneo = new Nota(TipoExamen.RECUPERATORIO_S_PARCIAL,7);
+           
+         assertFalse(universidad.registrarNota(comision, alumno, parcialErroneo));   	
     }
     
     @Test
     public void testQueNoPuedaAgregarUnaNotaMayorA10oMenorA1() {
-    	
-    	 Comision comision = new Comision("COM-001");
-         universidad.agregarComision(comision);
-         CicloLectivo nuevoCiclo = new CicloLectivo(LocalDate.of(2023,2,12), LocalDate.of(2023, 5, 28), LocalDate.of(2023, 1, 7), LocalDate.of(2023, 1, 15), 1);
-         universidad.agregarCicloLectivo(nuevoCiclo);
-           Alumno alumno = new Alumno("12345678", "Juan", "Perez", "01/01/1990", "01/01/2023");
-           universidad.agregarAlumno(alumno);
-           Materia materiaUno = new Materia(1,"Programacion Basica I", null);
-         Materia materiaDos = new Materia(2,"Programacion Basica II", null);
-          universidad.agregarMateria(materiaUno);
-          universidad.agregarMateria(materiaDos);
-          Nota primerParcial = new Nota(TipoExamen.PRIMER_PARCIAL,-1);
-          Nota segundoParcial = new Nota(TipoExamen.SEGUNDO_PARCIAL,11);
+    	Comision comision = new Comision("COM-001");
+    	universidad.agregarComision(comision);
+    	CicloLectivo nuevoCiclo = new CicloLectivo(LocalDate.of(2023,2,12), LocalDate.of(2023, 5, 28), LocalDate.of(2023, 1, 7), LocalDate.of(2023, 1, 15), 1);
+    	universidad.agregarCicloLectivo(nuevoCiclo);
+    	Alumno alumno = new Alumno("12345678", "Juan", "Perez", "01/01/1990", "01/01/2023");
+        universidad.agregarAlumno(alumno);
+        Materia materiaUno = new Materia(1,"Programacion Basica I", null);
+        Materia materiaDos = new Materia(2,"Programacion Basica II", null);
+        universidad.agregarMateria(materiaUno);
+        universidad.agregarMateria(materiaDos);
+        Nota primerParcial = new Nota(TipoExamen.PRIMER_PARCIAL,-1);
+        Nota segundoParcial = new Nota(TipoExamen.SEGUNDO_PARCIAL,11);
 
-           //Ahora vamos a conectar los datos
-
-           universidad.asignarCicloAComision(comision, nuevoCiclo);
-           universidad.agregarCorrelatividad(materiaUno.getId(), 1);
-           universidad.agregarCorrelatividad(materiaDos.getId(), 1);
-           universidad.asignarMateriaAComision(materiaUno, comision);
-           universidad.inscribirAlumnoAComision(alumno, comision);
-          
-           
-           //Trataremos de registrar notas fuera del rango posible
-           
-           assertFalse(universidad.registrarNota(comision, alumno, primerParcial));
-           assertFalse(universidad.registrarNota(comision, alumno, segundoParcial));
- 
-    	
+        universidad.asignarCicloAComision(comision, nuevoCiclo);
+        universidad.agregarCorrelatividad(materiaUno.getId(), 1);
+        universidad.agregarCorrelatividad(materiaDos.getId(), 1);
+        universidad.asignarMateriaAComision(materiaUno, comision);
+        universidad.inscribirAlumnoAComision(alumno, comision);
+     
+        assertFalse(universidad.registrarNota(comision, alumno, primerParcial));
+        assertFalse(universidad.registrarNota(comision, alumno, segundoParcial));  	
     }
     
     @Test
     public void testQueNoPuedaAgregarUnaNotaMayorA7SiNoTieneCorrelativaAprobada() {
-    	
     	 Comision comision = new Comision("COM-001");
          universidad.agregarComision(comision);
          CicloLectivo nuevoCiclo = new CicloLectivo(LocalDate.of(2023,2,12), LocalDate.of(2023, 5, 28), LocalDate.of(2023, 1, 7), LocalDate.of(2023, 1, 15), 1);
          universidad.agregarCicloLectivo(nuevoCiclo);
-           Alumno alumno = new Alumno("12345678", "Juan", "Perez", "01/01/1990", "01/01/2023");
-           universidad.agregarAlumno(alumno);
-           Materia materiaUno = new Materia(1,"Programacion Basica I", null);
+         Alumno alumno = new Alumno("12345678", "Juan", "Perez", "01/01/1990", "01/01/2023");
+         universidad.agregarAlumno(alumno);
+         Materia materiaUno = new Materia(1,"Programacion Basica I", null);
          Materia materiaDos = new Materia(2,"Programacion Basica II", null);
-          universidad.agregarMateria(materiaUno);
-          universidad.agregarMateria(materiaDos);
-          Nota primerParcial = new Nota(TipoExamen.PRIMER_PARCIAL,10);
-          Nota segundoParcial = new Nota(TipoExamen.SEGUNDO_PARCIAL,10);
-          Nota finals = new Nota(TipoExamen.FINAL,10);
+         universidad.agregarMateria(materiaUno);
+         universidad.agregarMateria(materiaDos);
+         Nota primerParcial = new Nota(TipoExamen.PRIMER_PARCIAL,10);
+         Nota segundoParcial = new Nota(TipoExamen.SEGUNDO_PARCIAL,10);
+         Nota finals = new Nota(TipoExamen.FINAL,10);
 
-           //Ahora vamos a conectar los datos
-
-           universidad.asignarCicloAComision(comision, nuevoCiclo);
-           universidad.agregarCorrelatividad(materiaUno.getId(), 1);
-           universidad.agregarCorrelatividad(materiaDos.getId(), 1);
-           universidad.asignarMateriaAComision(materiaDos, comision);
-           universidad.inscribirAlumnoAComision(alumno, comision);
-           universidad.registrarNota(comision, alumno, primerParcial);
-           universidad.registrarNota(comision, alumno, segundoParcial);
-           
-           
-           //Trataremos de registrar notas fuera del rango posible
-           
-           assertFalse(universidad.registrarNota(comision, alumno, finals));
- 
-    	
+         universidad.asignarCicloAComision(comision, nuevoCiclo);
+         universidad.agregarCorrelatividad(materiaUno.getId(), 1);
+         universidad.agregarCorrelatividad(materiaDos.getId(), 1);
+         universidad.asignarMateriaAComision(materiaDos, comision);
+         universidad.inscribirAlumnoAComision(alumno, comision);
+         universidad.registrarNota(comision, alumno, primerParcial);
+         universidad.registrarNota(comision, alumno, segundoParcial);
+                 
+         assertFalse(universidad.registrarNota(comision, alumno, finals)); 	
     }
     
     
@@ -477,18 +403,15 @@ public class UniversidadTest {
         Alumno alumno = new Alumno("12345678", "Juan", "Perez", "01/01/1990", "01/01/2023");
         Materia materia = new Materia(1, "Programacion Basica I", null);
         Universidad universidad = new Universidad();
-
         Comision comision = new Comision("COM-115");
 
         comision.agregarAlumno(alumno);
-        comision.setMateria(materia);
-        
+        comision.setMateria(materia);        
         universidad.agregarAlumno(alumno);
         universidad.agregarMateria(materia);
 
         RegistroNotas registro = new RegistroNotas(alumno, new Nota(TipoExamen.PRIMER_PARCIAL, 7));
-        comision.agregarRegistroNotas(registro);
-        
+        comision.agregarRegistroNotas(registro);        
         universidad.agregarComision(comision);
 
         Nota notaObtenida = universidad.obtenerNota(alumno, materia);
@@ -500,10 +423,8 @@ public class UniversidadTest {
 
     @Test
     public void testCalcularPromedio() {
-        // Crear una instancia de Universidad
         Universidad universidad = new Universidad();
 
-        // Crear instancias de Alumnos, Comisiones, Materias y registros de notas para pruebas
         Alumno alumno1 = new Alumno("115", "Juan", "Perez", "01/01/1990", "01/09/2023");
         Alumno alumno2 = new Alumno("987654321", "Ana", "Gomez", "15/03/1995", "01/09/2023");
         Comision comision1 = new Comision("COM-001");
@@ -514,7 +435,6 @@ public class UniversidadTest {
         RegistroNotas registro2 = new RegistroNotas(alumno1, new Nota(TipoExamen.SEGUNDO_PARCIAL, 8));
         RegistroNotas registro3 = new RegistroNotas(alumno2, new Nota(TipoExamen.PRIMER_PARCIAL, 6));
 
-        // Agregar alumnos, comisiones, materias, ciclo lectivo y registros de notas a la universidad
         universidad.agregarAlumno(alumno1);
         universidad.agregarAlumno(alumno2);
         universidad.agregarComision(comision1);
@@ -526,36 +446,30 @@ public class UniversidadTest {
         universidad.asignarMateriaAComision(materia, comision1);
         universidad.inscribirAlumnoAComision(alumno1, comision1);
         
-        // Agregar registros de notas a las comisiones
         comision1.agregarRegistroNotas(registro1);
         comision1.agregarRegistroNotas(registro2);
         comision2.agregarRegistroNotas(registro3);
         
-        // Calcular el promedio de notas del alumno con DNI "123456789"
         double promedio = universidad.calcularPromedio("115");
 
         // El promedio esperado es (7 + 8) / 2 = 7.5
-        assertEquals(7.5, promedio, 0.01); // Usamos un delta pequeño para manejar posibles errores de redondeo
+        assertEquals(7.5, promedio, 0.01);
     }
 
     
     @Test
-    public void testObtenerListasMateriasQueFaltanCursar() {
-    	
-    	   Alumno alumno = new Alumno("12345678", "Juan", "Perez", "01/01/1990", "01/01/2023");
-           
+    public void testObtenerListasMateriasQueFaltanCursar() {	
+    	   Alumno alumno = new Alumno("12345678", "Juan", "Perez", "01/01/1990", "01/01/2023");    
     	   Materia materia = new Materia(1, "Programacion Basica I", null);
            Materia materiaDos = new Materia(2,"Programacion Basica II", null);
            Comision comision = new Comision("COM-115");
-           CicloLectivo nuevoCiclo = new CicloLectivo(LocalDate.of(2023,2,12), LocalDate.of(2023, 5, 28), LocalDate.of(2023, 1, 7), LocalDate.of(2023, 1, 15), 1);
-       	
+           CicloLectivo nuevoCiclo = new CicloLectivo(LocalDate.of(2023,2,12), LocalDate.of(2023, 5, 28), LocalDate.of(2023, 1, 7), LocalDate.of(2023, 1, 15), 1);       	
            Universidad universidad = new Universidad();
 
            universidad.agregarAlumno(alumno);
            universidad.agregarMateria(materia);
            universidad.agregarMateria(materiaDos);
-           universidad.agregarComision(comision);
-           
+           universidad.agregarComision(comision);           
            universidad.asignarMateriaAComision(materia, comision);
            universidad.asignarCicloAComision(comision, nuevoCiclo);
            universidad.inscribirAlumnoAComision(alumno, comision);
@@ -566,38 +480,25 @@ public class UniversidadTest {
            for (Alumno a : universidad.getListaAlumnos()) {
 			if(a.getDni().equals(alumno.getDni())) {
 				a.aprobarMateria(materia);
-			}
-			
+			}			
 			assertEquals(1,universidad.obtenerMateriasQueLeFaltanCursarAUnAlumno(alumno).size());
 			assertTrue(universidad.obtenerMateriasQueLeFaltanCursarAUnAlumno(alumno).contains(materiaDos));
-		}
-    	
-    	
-    	
+		}    	   	
     }
     
-  
-
     @Test
-    public void testInscripcionSinCorrelativasAprobadas() {
-    	
+    public void testInscripcionSinCorrelativasAprobadas() {   	
         Alumno alumno = new Alumno("123456789", "Juan", "Perez", "01/01/1990", "01/09/2023");
-
-        // Crear una instancia de la comisión a la que se intentará inscribir al alumno
         Comision comision = new Comision("COM-001");
 
-        // Intentar inscribir al alumno en una comisión sin tener al menos 4 correlativas aprobadas (debería fallar)
         assertFalse(universidad.inscribirAlumnoAComision(alumno, comision));
     }
 
     @Test
     public void testInscripcionConCorrelativasAprobadas() {
-        Alumno alumno = new Alumno("123456789", "Juan", "Perez", "01/01/1990", "01/09/2023");
-        
-        // Crear una instancia de la comisión a la que se intentará inscribir al alumno
+        Alumno alumno = new Alumno("123456789", "Juan", "Perez", "01/01/1990", "01/09/2023");        
         Comision comision = new Comision("COM-001");
-
-        // Agregar la comisión a la lista de comisiones disponibles
+  
         universidad.agregarComision(comision);
         universidad.agregarAlumno(alumno);
         // Simular que el alumno tiene al menos 4 correlativas aprobadas
@@ -605,19 +506,16 @@ public class UniversidadTest {
             Materia correlativaAprobada = new Materia(i, "Materia" + i, i);
             alumno.agregarCorrelativaAprobada(correlativaAprobada);
         }
-
         // Intentar inscribir al alumno en una comisión con al menos 4 correlativas aprobadas (debería ser exitoso)
         assertTrue(universidad.inscribirAlumnoAComision(alumno, comision));
     }
     
     @Test
     public void testCrearVariasMaterias() {
-        // Crear varias materias
         Materia materia1 = new Materia(1, "Matemáticas", null);
         Materia materia2 = new Materia(2, "Historia", null);
         Materia materia3 = new Materia(3, "Ciencias", null);
 
-        // Verificar los atributos de las materias
         assertEquals(Integer.valueOf(1), materia1.getId());
         assertEquals("Matemáticas", materia1.getNombre());
 
@@ -626,6 +524,5 @@ public class UniversidadTest {
 
         assertEquals(Integer.valueOf(3), materia3.getId());
         assertEquals("Ciencias", materia3.getNombre());
-    }
-    
+    }   
 }

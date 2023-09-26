@@ -10,7 +10,7 @@ public class Alumno {
     private String apellido;
     private String fechaNacimiento;
     private String fechaIngreso;
-    private List<Materia> correlativasAprobadas; // Lista de correlativas aprobadas
+    private List<Materia> correlativasAprobadas;
     private List<Comision> comisionesInscritas;
     private List<Materia> materiasAprobadas;
  
@@ -20,13 +20,11 @@ public class Alumno {
         this.apellido = apellido;
         this.fechaNacimiento = fechaNacimiento;
         this.fechaIngreso = fechaIngreso;
-        this.correlativasAprobadas = new ArrayList<>(); // Inicializar la lista de correlativas aprobadas como una lista vacía
+        this.correlativasAprobadas = new ArrayList<>(); 
         this.comisionesInscritas = new ArrayList<>();
         this.materiasAprobadas = new ArrayList<>();
     }
-
-    // Getters y setters para los campos de la clase
-
+    
     public String getDni() {
         return dni;
     }
@@ -92,30 +90,22 @@ public class Alumno {
     }
 
     public void agregarCorrelativaAprobada(Materia correlativaAprobada) {
-        // Agregar una correlativa aprobada a la lista
         correlativasAprobadas.add(correlativaAprobada);
     }
 
     public void quitarCorrelativaAprobada(Materia correlativa) {
-        // Quitar una correlativa aprobada de la lista
         correlativasAprobadas.remove(correlativa);
     }
 
     public void inscribirComision(Comision comision) {
-        // Agregar una comisión a la lista de comisiones inscritas
         comisionesInscritas.add(comision);
     }
 
     public void aprobarMateria(Materia materia) {
-        // Agregar una materia aprobada a la lista de materias aprobadas
         materiasAprobadas.add(materia);
     }
     public void agregarCorrelativaAprobada(Integer id, String nombreMateria) {
-        // Crear una instancia de Materia usando el nombre proporcionado
-   
         Materia nuevaCorrelativa = new Materia(id, nombreMateria, null);
-
-        // Agregar la nueva correlativa aprobada a la lista
         correlativasAprobadas.add(nuevaCorrelativa);
     }  
 }

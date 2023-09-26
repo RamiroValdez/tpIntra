@@ -22,6 +22,5 @@ public class RegistroNotas {
     public void setNota(Nota nota) {
         this.nota = nota;
     }
-
 }
 

@@ -17,9 +17,7 @@ public class Nota {
         return valorNota;
     }
     
-    public void setValorNota(Integer valorNota) {
-    	
+    public void setValorNota(Integer valorNota) {   	
     	this.valorNota = valorNota;
-   
 	}
 }
