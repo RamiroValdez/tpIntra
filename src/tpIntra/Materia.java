@@ -36,5 +36,4 @@ public class Materia {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-
 }
