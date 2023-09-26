@@ -7,10 +7,25 @@ public class Universidad {
 	
     private List<Alumno> listaAlumnos = new ArrayList<>(); //Declarar como estática
     private List<Comision> listaComisiones = new ArrayList<>(); //Declarar como estática
+    private List<Profesor> listaProfesores = new ArrayList<>();
     private List<CicloLectivo> listaCiclosLectivos = new ArrayList<>();
     private List<Materia> listaMaterias = new ArrayList<>(); 
-    private List <Aula> aula = new ArrayList<>();
 
+    public Boolean agregarProfesor(Profesor profesor) {
+    	
+    	if(listaProfesores.size()==0) {
+    		return listaProfesores.add(profesor);
+    	}else {
+    		for(Profesor p : listaProfesores) {
+    			if(p.getDni().equals(profesor.getDni())) {
+    				return false;
+    			}
+    		}
+    		
+    		return listaProfesores.add(profesor);
+    	}
+    }
+    
     public boolean agregarAlumno(Alumno alumno) {
         // Verifica si ya existe un alumno con el mismo DNI
         for (Alumno a : listaAlumnos) {
@@ -44,6 +59,9 @@ public class Universidad {
  		if(listaCiclosLectivos == null) {
  			return listaCiclosLectivos.add(ciclo);
  		}else {
+ 			if(validarFechasCicloLectivo(ciclo)==false) {
+ 				return false;
+ 			}
  			for (CicloLectivo c : listaCiclosLectivos) {
 				if(c.getIdCicloLectivo() == ciclo.getIdCicloLectivo()) {
 					return false;
@@ -53,15 +71,6 @@ public class Universidad {
  			return listaCiclosLectivos.add(ciclo);
  		}
  	}
-
- 	public List<Alumno> getListaAlumnos() {
- 	    return listaAlumnos;
- 	}
-
-    public List<Comision> getListaComisiones() {
-        return listaComisiones;
-    }
-    
 
     public Boolean agregarMateria(Materia materiaAgregada) {
 	//No se puede agregar 2 materias con mismo Id
@@ -81,26 +90,6 @@ public class Universidad {
     	}
 	}
     
-    public Boolean asignarCorrelativdidad(Materia materiaAAsignar, Materia materiaAsignada) {
-
-        if(!listaMaterias.contains(materiaAAsignar)) {
-            return false;
-        }
-        if(!listaMaterias.contains(materiaAsignada)) {
-            return false;
-        }
-
-        for (Materia m : listaMaterias) {
-            if(m.getIdCorrelativa() == null) {
-                if(m.getId().equals(materiaAAsignar.getId())) {
-                    m.setIdCorrelativa(materiaAsignada.getId());
-                }
-            }
-        }
-
-        return true;
-
-    }
     
     public Boolean agregarCorrelatividad(Integer id, Integer valorCorrelatividad) {
 		
@@ -117,17 +106,13 @@ public class Universidad {
   		return false;
   	}
        
-     public Boolean eliminarCorrelatividad(Integer id, Integer id2) {
+     public Boolean eliminarCorrelatividad(Integer id) {
   		
       	for (Materia m : listaMaterias) {
   			if(m.getId().equals(id)) {
-  				//Estos condicionales verifican que tenga correlativas y correspondan al valor buscado.
   				if(m.getIdCorrelativa() != null) { 
-  					if(m.getIdCorrelativa().equals(id2)) {
   						m.setIdCorrelativa(null);
   						return true;
-  					}
-  					
   				}
   				
   			}
@@ -241,9 +226,7 @@ public class Universidad {
     	    return yaAprobo;
     	}
 
-	public List<CicloLectivo> getListaCiclosLectivos() {
-		return listaCiclosLectivos;
-	}
+
 
 	public boolean asignarCicloAComision(Comision comision, CicloLectivo ciclo) {
 		
@@ -408,10 +391,6 @@ public class Universidad {
 	    }
 		return null;
 	}
-	
-	public void setListaComisiones(List<Comision> listaComisiones) {
-	    this.listaComisiones = listaComisiones;
-	}
 
 	public Boolean saberSiTieneLasCorrelativasAprobadas(Alumno alumno, Integer valorCorrelatividad) {
 		
@@ -481,6 +460,87 @@ public class Universidad {
 		return materiasQueLeFaltanCursar;
 	}
 	
+	public Boolean validarFechasCicloLectivo(CicloLectivo ciclo) {
+		
+		for (CicloLectivo cl : listaCiclosLectivos) {
+			  if (ciclo.getFechaInicio().isBefore(cl.getFechaFin()) &&
+			            ciclo.getFechaFin().isAfter(cl.getFechaInicio())) {
+			            return false;  // Hay superposición de fechas, no se puede agregar
+			 }
+		}
+		
+		return true;
+		
+	}
+	
+	public Boolean asignarProfesorAComision(Profesor profesor,Comision comision) {
+		
+		if(!esProfesorAlta(profesor)) {
+			return false;
+		}
+		if(!esComisionAlta(comision)) {
+			return false;
+		}
+		
+		for (Comision c : listaComisiones) {
+			
+			if(c.getCodigo().equals(comision.getCodigo())) {
+				
+				if(c.getProfesores().contains(profesor)) {
+					return false;
+				}else {
+					if(c.getProfesores().size()==0) {
+						c.agregarProfesor(profesor);
+					}else { 
+						if(c.getAlumnos().size()<=20) {
+							return false;
+						}else {
+							c.agregarProfesor(profesor);
+						}
+					}
+				}
+			}
+		}
+		
+		return true;
+		
+	}
+	
+	public Boolean asignarAulaAComision(Comision comision, Aula aula) {
+		
+		if(!esComisionAlta(comision)) {
+			return false;
+		}
+		
+		for (Comision c : listaComisiones) {
+			if(c.getCodigo().equals(comision.getCodigo())) {
+				if(c.getAula()!=null) {
+					c.asignarAula(aula);
+				}else {
+					return false;
+				}
+			}
+		}
+		return true;
+	}
 
+	private Boolean esProfesorAlta(Profesor profesor) {
+		// TODO Auto-generated method stub
+		return listaProfesores.contains(profesor);
+	}
+	
+ 	public List<Alumno> getListaAlumnos() {
+ 	    return listaAlumnos;
+ 	}
+	public List<CicloLectivo> getListaCiclosLectivos() {
+		return listaCiclosLectivos;
+	}
+
+    public List<Comision> getListaComisiones() {
+        return listaComisiones;
+    }
+	public void setListaComisiones(List<Comision> listaComisiones) {
+	    this.listaComisiones = listaComisiones;
+	}
 
 }
