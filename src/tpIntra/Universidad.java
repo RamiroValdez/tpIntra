@@ -211,8 +211,10 @@ public class Universidad {
 	}
 
 	public boolean registrarNota(Comision comision, Alumno alumno, Nota nota) {
+		
 		Integer valTipoNota = 0;
 		Boolean validacionNotasMayoresA7 = false;
+		
         if(!esComisionAlta(comision)) {
         return false;
         }
@@ -241,7 +243,7 @@ public class Universidad {
         if(nota.getTipoDeExamen()==TipoExamen.FINAL) {
         	for (RegistroNotas rn : comision.getRegistrosNotas()) {	
         		if(rn.getAlumno()==alumno) {
-					if(rn.getNota().getTipoDeExamen()==TipoExamen.PRIMER_PARCIAL) {
+        			if(rn.getNota().getTipoDeExamen()==TipoExamen.PRIMER_PARCIAL) {
 						valTipoNota = 1;
 						if(rn.getNota().getValorNota()>7) {
 							validacionNotasMayoresA7 = true;
@@ -262,8 +264,8 @@ public class Universidad {
 							valTipoNota = 3;
 						}
 					}		
-				}
-		}
+			   }
+		  }
         	if(validacionNotasMayoresA7==true) {
         		if(valTipoNota!=2) {
         			return false;

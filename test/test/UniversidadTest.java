@@ -134,9 +134,9 @@ public class UniversidadTest {
         Aula aula = new Aula("Aula-001", 30);
         
         universidad.agregarAlumno(alumno);
-        universidad.inscribirAlumnoAComision(alumno, comision);
         universidad.agregarComision(comision);
         universidad.agregarProfesor(profesor);
+        universidad.inscribirAlumnoAComision(alumno, comision);
         universidad.asignarAulaAComision(comision, aula);
           
         assertTrue(universidad.asignarProfesorAComision(profesor, comision));
